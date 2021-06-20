@@ -1,0 +1,38 @@
+% Encoding: UTF-8
+
+@Misc{adaf,
+  title    = {Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}},
+  abstract = {In this tutorial, you are not actually building anything, but you will learn how to configure your Raspberry Pi and install useful libraries ready to start attaching some external electronics to it.},
+  file     = {Snapshot:/home/rabikkk/Zotero/storage/C9P3HRUJ/configuring-i2c.html:text/html},
+  journal  = {Adafruit Learning System},
+  language = {en-US},
+  url      = {https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c},
+  urldate  = {2021-06-19},
+}
+
+@Misc{perip,
+  author     = {vsergeev},
+  title      = {python-periphery: {A} pure {Python} 2/3 library for peripheral {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in {Linux}.},
+  copyright  = {MIT License},
+  file       = {Snapshot:/home/rabikkk/Zotero/storage/W3HLX3JT/python-periphery.html:text/html},
+  keywords   = {beaglebone,, embedded,, gpio,, i2c,, led,, linux,, mmio,, odroid, pwm,, raspberrypi,, rpi,, serial,, Software Development - Embedded Systems, Software Development - Libraries - Python Modules, spi,, System - Hardware, System - Hardware - Hardware Drivers, uart,},
+  shorttitle = {python-periphery},
+  url        = {https://github.com/vsergeev/python-periphery},
+  urldate    = {2021-06-19},
+}
+
+@Misc{cv2,
+  title   = {{OpenCV}: {OpenCV}-{Python} {Tutorials}},
+  file    = {OpenCV\: OpenCV-Python Tutorials:/home/rabikkk/Zotero/storage/IJZIK95Z/tutorial_py_root.html:text/html},
+  url     = {https://docs.opencv.org/4.5.2/d6/d00/tutorial_py_root.html},
+  urldate = {2021-06-19},
+}
+
+@TechReport{datasheet,
+  author      = {Schnorr/M. Lupp},
+  institution = {Heimann},
+  title       = {HTPA32x32dR2L5.0/0.85F7.7eHiC Thermopile Array With Lens Optics Rev3.0},
+  year        = {2018.03.28},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

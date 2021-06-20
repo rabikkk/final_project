@@ -1,0 +1,29 @@
+\begin{thebibliography}{1}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname uline\endcsname\relax\let\uline\underline\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{adaf}
+\enquote{Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}}.
+\newline\urlprefix\url{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
+
+\bibitem{cv2}
+\enquote{{OpenCV}: {OpenCV}-{Python} {Tutorials}}.
+\newline\urlprefix\url{$https://docs.opencv.org/4.5.2/d6/d00/tutorial_py_root.html$}
+
+\bibitem{perip}
+vsergeev.
+\newblock \enquote{python-periphery: {A} pure {Python} 2/3 library for
+  peripheral {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in
+  {Linux}.}
+\newline\urlprefix\url{https://github.com/vsergeev/python-periphery}
+
+\bibitem{datasheet}
+Lupp, S.
+\newblock \enquote{Htpa32x32dr2l5.0/0.85f7.7ehic thermopile array with lens
+  optics rev3.0}.
+\newblock Technical report, Heimann, 2018.03.28.
+
+\end{thebibliography}

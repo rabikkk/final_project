@@ -1,0 +1,28 @@
+\babel@toc {english}{}
+\contentsline {chapter}{ABSTRACT}{I}%
+\contentsline {chapter}{ÖZET}{II}%
+\contentsline {chapter}{Contents}{III}%
+\contentsline {chapter}{List of Tables}{V}%
+\contentsline {chapter}{List of Figures}{VI}%
+\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}%
+\contentsline {chapter}{\numberline {2}TECHNICAL BACKGROUND}{2}%
+\contentsline {section}{\numberline {2.1}Introduction to Artificial Neural Networks}{2}%
+\contentsline {section}{\numberline {2.2}Learning Process of Artificial Neural Networks}{2}%
+\contentsline {chapter}{\numberline {3}MATERIALS AND METHODS}{3}%
+\contentsline {section}{\numberline {3.1}Dataset}{3}%
+\contentsline {section}{\numberline {3.2}Data Augmentation}{3}%
+\contentsline {section}{\numberline {3.3}Model Architecture for LE-NET5}{3}%
+\contentsline {chapter}{\numberline {4}PROGRESS AND RESULT}{4}%
+\contentsline {section}{\numberline {4.1}Capture Thermopiles Image}{4}%
+\contentsline {subsection}{\numberline {4.1.1}Heimann Thermopile Array Sensor communication}{4}%
+\contentsline {subsection}{\numberline {4.1.2}Calibrating images from Heimann Thermopile Array Sensor}{6}%
+\contentsline {paragraph}{~}{8}%
+\contentsline {section}{\numberline {4.2}Hand Thermal Image Isolation}{8}%
+\contentsline {section}{\numberline {4.3}Hand Gesture Recognition}{8}%
+\contentsline {subsection}{\numberline {4.3.1}Static Gesture Recognition}{8}%
+\contentsline {subsection}{\numberline {4.3.2}Dynamic Gesture Recognition}{8}%
+\contentsline {section}{\numberline {4.4}Sensor and MCU Communication PCB Design}{8}%
+\contentsline {section}{\numberline {4.5}Matching Gesture to Commands of Smart Mirror}{9}%
+\contentsline {chapter}{\numberline {5}COST ANALYSIS}{10}%
+\contentsline {chapter}{\numberline {6}CONCLUSION}{11}%
+\contentsline {chapter}{\numberline {7}APPENDIX}{13}%

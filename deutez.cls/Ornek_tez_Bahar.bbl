@@ -6,24 +6,40 @@
 \providecommand{\eprint}[2][]{\url{#2}}
 
 \bibitem{adaf}
-\enquote{Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}}.
+\uline{Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}}.
+\newblock Publication Title: Adafruit Learning System.
 \newline\urlprefix\url{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
 
+\bibitem{dataset}
+\enquote{{MultiModalHandGesture}\_dataset}.
+\newline\urlprefix\url{$http://www.gti.ssr.upm.es/data/MultiModalHandGesture_dataset$}
+
 \bibitem{cv2}
-\enquote{{OpenCV}: {OpenCV}-{Python} {Tutorials}}.
-\newline\urlprefix\url{$https://docs.opencv.org/4.5.2/d6/d00/tutorial_py_root.html$}
+\uline{{OpenCV}: {OpenCV}-{Python} {Tutorials}}.
+\newline\urlprefix\url{$https://docs.opencv.org/4.5.2/d6/d00/tutorial\_py\_root.html$}
 
 \bibitem{perip}
-vsergeev.
-\newblock \enquote{python-periphery: {A} pure {Python} 2/3 library for
-  peripheral {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in
-  {Linux}.}
+{vsergeev}.
+\newblock \uline{python-periphery: {A} pure {Python} 2/3 library for peripheral
+  {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in {Linux}.}
 \newline\urlprefix\url{https://github.com/vsergeev/python-periphery}
+
+\bibitem{lenet}
+Lecun, Y., Bottou, L., et~al.
+\newblock \enquote{Gradient-based learning applied to document recognition}.
+\newblock Proceedings of the IEEE, volume~86, no.~11, pages 2278--2324, 1998.
+\newline\urlprefix\url{http://ieeexplore.ieee.org/document/726791/}
+
+\bibitem{aug}
+Himblot, T.
+\newblock \enquote{Data augmentation : boost your image dataset with few lines
+  of {Python}}, 2018.
+\newline\urlprefix\url{https://medium.com/@thimblot/data-augmentation-boost-your-image-dataset-with-few-lines-of-python-155c2dc1baec}
 
 \bibitem{datasheet}
 Lupp, S.
-\newblock \enquote{Htpa32x32dr2l5.0/0.85f7.7ehic thermopile array with lens
-  optics rev3.0}.
-\newblock Technical report, Heimann, 2018.03.28.
+\newblock \enquote{{HTPA32x32dR2L5}.0/0.{85F7}.{7eHiC} {Thermopile} {Array}
+  {With} {Lens} {Optics} {Rev3}.0}.
+\newblock Technical report, Heimann, 2018.
 
 \end{thebibliography}

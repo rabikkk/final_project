@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.6.19)  20 JUN 2021 22:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.6.19)  21 JUN 2021 18:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,42 +551,73 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
 \xmathstrut@box=\box80
 \xmathstrut@dim=\dimen270
 )
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count284
+\lst@gtempboxa=\box81
+\lst@token=\toks43
+\lst@length=\count285
+\lst@currlwidth=\dimen271
+\lst@column=\count286
+\lst@pos=\count287
+\lst@lostspace=\dimen272
+\lst@width=\dimen273
+\lst@newlines=\count288
+\lst@lineno=\count289
+\lst@maxwidth=\dimen274
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count290
+\lst@skipnumbers=\count291
+\lst@framebox=\box82
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count284
-\l__pdf_internal_box=\box81
+\l__kernel_color_stack_int=\count292
+\l__pdf_internal_box=\box83
 )
 (./Ornek_tez_Bahar.aux)
 \openout1 = `Ornek_tez_Bahar.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count285
-\scratchdimen=\dimen271
-\scratchbox=\box82
-\nofMPsegments=\count286
-\nofMParguments=\count287
-\everyMPshowfont=\toks43
-\MPscratchCnt=\count288
-\MPscratchDim=\dimen272
-\MPnumerator=\count289
-\makeMPintoPDFobject=\count290
-\everyMPtoPDFconversion=\toks44
+\scratchcounter=\count293
+\scratchdimen=\dimen275
+\scratchbox=\box84
+\nofMPsegments=\count294
+\nofMParguments=\count295
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count296
+\MPscratchDim=\dimen276
+\MPnumerator=\count297
+\makeMPintoPDFobject=\count298
+\everyMPtoPDFconversion=\toks45
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -634,15 +665,15 @@ ABD: EveryShipout initializing macros
 <Deu.jpg, id=4, 292.4526pt x 269.5671pt>
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 19.
+Package pdftex.def Info: Deu.jpg  used on input line 44.
 (pdftex.def)             Requested size: 82.1252pt x 75.69627pt.
 <Muh.jpg, id=5, 154.176pt x 144.54pt>
 File: Muh.jpg Graphic file (type jpg)
 <use Muh.jpg>
-Package pdftex.def Info: Muh.jpg  used on input line 19.
+Package pdftex.def Info: Muh.jpg  used on input line 44.
 (pdftex.def)             Requested size: 82.1252pt x 76.99399pt.
 
-Overfull \hbox (24.82648pt too wide) in paragraph at lines 19--19
+Overfull \hbox (24.82648pt too wide) in paragraph at lines 44--44
 [] [][][] 
  []
 
@@ -650,28 +681,29 @@ Overfull \hbox (24.82648pt too wide) in paragraph at lines 19--19
 
 {/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} <./Deu.jpg> 
 <./Muh.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 19--19
+Underfull \hbox (badness 10000) in paragraph at lines 44--44
 
  []
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 19.
+Package pdftex.def Info: Deu.jpg  used on input line 44.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
 [0]
+\c@lstlisting=\count299
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 25.
+Package pdftex.def Info: Deu.jpg  used on input line 50.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [1]
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 29.
+Package pdftex.def Info: Deu.jpg  used on input line 54.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [2] (./Ornek_tez_Bahar.toc
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 27.
+Package pdftex.def Info: Deu.jpg  used on input line 31.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [3
 
@@ -681,7 +713,7 @@ Package pdftex.def Info: Deu.jpg  used on input line 27.
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 29.
+Package pdftex.def Info: Deu.jpg  used on input line 54.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [4] (./Ornek_tez_Bahar.lot)
 \tf@lot=\write5
@@ -689,7 +721,7 @@ Package pdftex.def Info: Deu.jpg  used on input line 29.
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 30.
+Package pdftex.def Info: Deu.jpg  used on input line 55.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [5
 
@@ -701,7 +733,7 @@ Package pdftex.def Info: Deu.jpg  used on input line 30.
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 31.
+Package pdftex.def Info: Deu.jpg  used on input line 56.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
  [6
 
@@ -710,96 +742,233 @@ Package pdftex.def Info: Deu.jpg  used on input line 31.
 Chapter 1.
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 37.
+Package pdftex.def Info: Deu.jpg  used on input line 62.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
 [1
 
 
 ]
 Chapter 2.
+</home/rabikkk/Pictures/images/lenet.png, id=42, 1410.26875pt x 387.4475pt>
+File: /home/rabikkk/Pictures/images/lenet.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/lenet.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/lenet.png  used on input
+ line 69.
+(pdftex.def)             Requested size: 412.56497pt x 113.3442pt.
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 76.
+
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 78.
+
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 80.
+
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 82.
+
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 84.
+
+
+LaTeX Warning: Citation `lenet' on page 2 undefined on input line 86.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--87
+
+ []
+
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 42.
+Package pdftex.def Info: Deu.jpg  used on input line 87.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
 [2
 
-]
-Chapter 3.
+ </home/rabikkk/Pictures/images/lenet.png>]
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 46.
+Package pdftex.def Info: Deu.jpg  used on input line 95.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[3
+ [3]
+Chapter 3.
 
-]
+Underfull \hbox (badness 10000) in paragraph at lines 97--101
+
+ []
+
+</home/rabikkk/Pictures/images/htpa.jpg, id=51, 602.25pt x 602.25pt>
+File: /home/rabikkk/Pictures/images/htpa.jpg Graphic file (type jpg)
+<use /home/rabikkk/Pictures/images/htpa.jpg>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/htpa.jpg  used on input 
+line 104.
+(pdftex.def)             Requested size: 144.40025pt x 144.3959pt.
+</home/rabikkk/Pictures/images/htpasema.png, id=52, 744.7825pt x 435.6275pt>
+File: /home/rabikkk/Pictures/images/htpasema.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/htpasema.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/htpasema.png  used on in
+put line 105.
+(pdftex.def)             Requested size: 206.28249pt x 120.65208pt.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
+15.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
+
+Overfull \hbox (62.47096pt too wide) in paragraph at lines 113--120
+[][] 
+ []
+
+</home/rabikkk/Pictures/images/schematic.png, id=53, 660.4675pt x 293.095pt>
+File: /home/rabikkk/Pictures/images/schematic.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/schematic.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/schematic.png  used on i
+nput line 127.
+(pdftex.def)             Requested size: 247.54149pt x 109.8522pt.
+</home/rabikkk/Pictures/images/pcb.png, id=54, 276.03125pt x 217.81375pt>
+File: /home/rabikkk/Pictures/images/pcb.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/pcb.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/pcb.png  used on input l
+ine 129.
+(pdftex.def)             Requested size: 165.02347pt x 130.22394pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 132.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+[4
+
+ </home/rabikkk/Pictures/images/htpa.jpg> </home/rabikkk/Pictures/images/htpase
+ma.png>]
+</home/rabikkk/Pictures/images/mb.png, id=61, 940.51375pt x 264.99pt>
+File: /home/rabikkk/Pictures/images/mb.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/mb.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/mb.png  used on input li
+ne 136.
+(pdftex.def)             Requested size: 412.56497pt x 116.24013pt.
+
+
+LaTeX Warning: Citation `dataset' on page 5 undefined on input line 142.
+
+</home/rabikkk/Pictures/images/data1.png, id=62, 715.67375pt x 209.78375pt>
+File: /home/rabikkk/Pictures/images/data1.png Graphic file (type png)
+<use /home/rabikkk/Pictures/images/data1.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/data1.png  used on input
+ line 163.
+(pdftex.def)             Requested size: 330.05322pt x 96.74815pt.
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 166.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+[5 </home/rabikkk/Pictures/images/schematic.png> </home/rabikkk/Pictures/images
+/pcb.png> </home/rabikkk/Pictures/images/mb.png>]
+
+LaTeX Warning: Citation `aug' on page 6 undefined on input line 168.
+
+</home/rabikkk/Pictures/images/close_test289.jpg, id=70, 32.12pt x 32.12pt>
+File: /home/rabikkk/Pictures/images/close_test289.jpg Graphic file (type jpg)
+<use /home/rabikkk/Pictures/images/close_test289.jpg>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/close_test289.jpg  used 
+on input line 172.
+(pdftex.def)             Requested size: 82.51173pt x 82.51848pt.
+</home/rabikkk/Pictures/images/index_test179.jpg, id=71, 32.12pt x 32.12pt>
+File: /home/rabikkk/Pictures/images/index_test179.jpg Graphic file (type jpg)
+<use /home/rabikkk/Pictures/images/index_test179.jpg>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/index_test179.jpg  used 
+on input line 173.
+(pdftex.def)             Requested size: 82.51173pt x 82.51848pt.
+</home/rabikkk/Pictures/images/last_test71.jpg, id=72, 32.12pt x 32.12pt>
+File: /home/rabikkk/Pictures/images/last_test71.jpg Graphic file (type jpg)
+<use /home/rabikkk/Pictures/images/last_test71.jpg>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/last_test71.jpg  used on
+ input line 174.
+(pdftex.def)             Requested size: 82.51173pt x 82.51848pt.
+</home/rabikkk/Pictures/images/open_test_0_9826.png, id=73, 32.12pt x 32.12pt>
+File: /home/rabikkk/Pictures/images/open_test_0_9826.png Graphic file (type png
+)
+<use /home/rabikkk/Pictures/images/open_test_0_9826.png>
+Package pdftex.def Info: /home/rabikkk/Pictures/images/open_test_0_9826.png  us
+ed on input line 175.
+(pdftex.def)             Requested size: 82.51173pt x 82.51848pt.
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 180.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+[6 </home/rabikkk/Pictures/images/data1.png> </home/rabikkk/Pictures/images/clo
+se_test289.jpg (PNG copy)> </home/rabikkk/Pictures/images/index_test179.jpg> </
+home/rabikkk/Pictures/images/last_test71.jpg> </home/rabikkk/Pictures/images/op
+en_test_0_9826.png (PNG copy)>]
 Chapter 4.
-</home/rabikkk/Pictures/images/raspi1.png, id=48, 498.86375pt x 192.72pt>
+</home/rabikkk/Pictures/images/raspi1.png, id=78, 498.86375pt x 192.72pt>
 File: /home/rabikkk/Pictures/images/raspi1.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/raspi1.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/raspi1.png  used on inpu
-t line 54.
+t line 188.
 (pdftex.def)             Requested size: 330.05322pt x 127.51022pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 78.
+Package pdftex.def Info: Deu.jpg  used on input line 212.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[4
+[7
 
  </home/rabikkk/Pictures/images/raspi1.png>]
-</home/rabikkk/Pictures/images/4.img.jpg, id=54, 289.08pt x 289.08pt>
+</home/rabikkk/Pictures/images/4.img.jpg, id=83, 289.08pt x 289.08pt>
 File: /home/rabikkk/Pictures/images/4.img.jpg Graphic file (type jpg)
 <use /home/rabikkk/Pictures/images/4.img.jpg>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/4.img.jpg  used on input
- line 116.
+ line 250.
 (pdftex.def)             Requested size: 94.88817pt x 94.88501pt.
-</home/rabikkk/Pictures/images/3.img.jpg, id=55, 24.09pt x 24.09pt>
+</home/rabikkk/Pictures/images/3.img.jpg, id=84, 24.09pt x 24.09pt>
 File: /home/rabikkk/Pictures/images/3.img.jpg Graphic file (type jpg)
 <use /home/rabikkk/Pictures/images/3.img.jpg>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/3.img.jpg  used on input
- line 117.
+ line 251.
 (pdftex.def)             Requested size: 94.88817pt x 94.90367pt.
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 125.
+Package pdftex.def Info: Deu.jpg  used on input line 259.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
- [5 </home/rabikkk/Pictures/images/4.img.jpg> </home/rabikkk/Pictures/images/3.
+ [8 </home/rabikkk/Pictures/images/4.img.jpg> </home/rabikkk/Pictures/images/3.
 img.jpg>]
-</home/rabikkk/Pictures/images/eeprom.png, id=60, 960.58875pt x 514.92375pt>
+</home/rabikkk/Pictures/images/eeprom.png, id=88, 960.58875pt x 514.92375pt>
 File: /home/rabikkk/Pictures/images/eeprom.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/eeprom.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/eeprom.png  used on inpu
-t line 134.
+t line 268.
 (pdftex.def)             Requested size: 412.56497pt x 221.15361pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--171
+Underfull \hbox (badness 10000) in paragraph at lines 272--305
 
  []
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 171.
+Package pdftex.def Info: Deu.jpg  used on input line 305.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[6 </home/rabikkk/Pictures/images/eeprom.png>]
-</home/rabikkk/Pictures/images/last_test58.png, id=71, 385.44pt x 385.44pt>
+[9 </home/rabikkk/Pictures/images/eeprom.png>]
+</home/rabikkk/Pictures/images/last_test58.png, id=98, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/last_test58.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/last_test58.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/last_test58.png  used on
- input line 176.
+ input line 310.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
-</home/rabikkk/Pictures/images/last_test59.png, id=72, 385.44pt x 385.44pt>
+</home/rabikkk/Pictures/images/last_test59.png, id=99, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/last_test59.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/last_test59.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/last_test59.png  used on
- input line 177.
+ input line 311.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
-</home/rabikkk/Pictures/images/last_test60.png, id=73, 385.44pt x 385.44pt>
+</home/rabikkk/Pictures/images/last_test60.png, id=100, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/last_test60.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/last_test60.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/last_test60.png  used on
- input line 178.
+ input line 312.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
 
 
@@ -807,84 +976,123 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 181.
+Package pdftex.def Info: Deu.jpg  used on input line 315.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[7]
-</home/rabikkk/Pictures/images/rgb0.png, id=80, 385.44pt x 385.44pt>
+[10]
+</home/rabikkk/Pictures/images/rgb0.png, id=106, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/rgb0.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/rgb0.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/rgb0.png  used on input 
-line 187.
+line 321.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
-</home/rabikkk/Pictures/images/rgb1.png, id=81, 385.44pt x 385.44pt>
+</home/rabikkk/Pictures/images/rgb1.png, id=107, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/rgb1.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/rgb1.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/rgb1.png  used on input 
-line 188.
+line 322.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
-</home/rabikkk/Pictures/images/rgb2.png, id=82, 385.44pt x 385.44pt>
+</home/rabikkk/Pictures/images/rgb2.png, id=108, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/rgb2.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/rgb2.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/rgb2.png  used on input 
-line 189.
+line 323.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
-</home/rabikkk/Pictures/images/rgb3.png, id=83, 385.44pt x 385.44pt>
+</home/rabikkk/Pictures/images/rgb3.png, id=109, 385.44pt x 385.44pt>
 File: /home/rabikkk/Pictures/images/rgb3.png Graphic file (type png)
 <use /home/rabikkk/Pictures/images/rgb3.png>
 Package pdftex.def Info: /home/rabikkk/Pictures/images/rgb3.png  used on input 
-line 190.
+line 324.
 (pdftex.def)             Requested size: 94.88817pt x 94.88354pt.
 
-Overfull \hbox (1.49763pt too wide) in paragraph at lines 184--193
+Overfull \hbox (1.49763pt too wide) in paragraph at lines 318--327
 \OT1/cmr/m/n/10.95 The hand was iso-lated from the back-ground with-out us-ing 
 any im-age pro-cess-ing method.
  []
 
-</home/rabikkk/Pictures/images/schematic.png, id=84, 660.4675pt x 293.095pt>
-File: /home/rabikkk/Pictures/images/schematic.png Graphic file (type png)
-<use /home/rabikkk/Pictures/images/schematic.png>
-Package pdftex.def Info: /home/rabikkk/Pictures/images/schematic.png  used on i
-nput line 201.
-(pdftex.def)             Requested size: 288.79422pt x 128.16165pt.
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 204.
+Package pdftex.def Info: Deu.jpg  used on input line 336.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[8 </home/rabikkk/Pictures/images/last_test58.png (PNG copy)> </home/rabikkk/Pi
-ctures/images/last_test59.png (PNG copy)> </home/rabikkk/Pictures/images/last_t
-est60.png (PNG copy)> </home/rabikkk/Pictures/images/rgb0.png (PNG copy)> </hom
-e/rabikkk/Pictures/images/rgb1.png (PNG copy)> </home/rabikkk/Pictures/images/r
-gb2.png (PNG copy)> </home/rabikkk/Pictures/images/rgb3.png (PNG copy)>]
-</home/rabikkk/Pictures/images/pcb.png, id=88, 505.89pt x 225.84375pt>
-File: /home/rabikkk/Pictures/images/pcb.png Graphic file (type png)
-<use /home/rabikkk/Pictures/images/pcb.png>
-Package pdftex.def Info: /home/rabikkk/Pictures/images/pcb.png  used on input l
-ine 207.
-(pdftex.def)             Requested size: 165.02347pt x 73.67058pt.
-File: Deu.jpg Graphic file (type jpg)
-<use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 212.
-(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-
-[9 </home/rabikkk/Pictures/images/schematic.png> </home/rabikkk/Pictures/images
-/PCB.png>]
+[11 </home/rabikkk/Pictures/images/last_test58.png (PNG copy)> </home/rabikkk/P
+ictures/images/last_test59.png (PNG copy)> </home/rabikkk/Pictures/images/last_
+test60.png (PNG copy)> </home/rabikkk/Pictures/images/rgb0.png (PNG copy)> </ho
+me/rabikkk/Pictures/images/rgb1.png (PNG copy)> </home/rabikkk/Pictures/images/
+rgb2.png (PNG copy)> </home/rabikkk/Pictures/images/rgb3.png (PNG copy)>]
 Chapter 5.
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 213.
+Package pdftex.def Info: Deu.jpg  used on input line 337.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[10
+[12
 
 ]
 Chapter 6.
-(./Ornek_tez_Bahar.bbl
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 338.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+[13
+
+]
+Chapter 7.
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) (./htpa_vsc.py
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 1.
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 43.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+
+[14
+
+]
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 91.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [15]
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 142.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [16]
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 182.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [17]
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 233.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [18])
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 342.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [19] (./cap.py)
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
+
+ []
+
+(./resize.py
+File: Deu.jpg Graphic file (type jpg)
+<use Deu.jpg>
+Package pdftex.def Info: Deu.jpg  used on input line 14.
+(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
+ [20])
+Underfull \hbox (badness 10000) in paragraph at lines 347--348
+
+ []
+
+(./aug.py) (./Ornek_tez_Bahar.bbl
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
 Package pdftex.def Info: Deu.jpg  used on input line 1.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
- [11
-
-]
+ [21]
 Overfull \hbox (118.65567pt too wide) in paragraph at lines 9--11
 \OT1/cmr/m/n/10.95 URL \OT1/cmtt/m/n/10.95 https://learn.adafruit.com/adafruits
 -raspberry-pi-lesson-4-gpio-setup/configuring-i2c 
@@ -893,47 +1101,44 @@ Overfull \hbox (118.65567pt too wide) in paragraph at lines 9--11
 )
 File: Deu.jpg Graphic file (type jpg)
 <use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 216.
+Package pdftex.def Info: Deu.jpg  used on input line 353.
 (pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
- [12
+ [22
 
-]
-Chapter 7.
-File: Deu.jpg Graphic file (type jpg)
-<use Deu.jpg>
-Package pdftex.def Info: Deu.jpg  used on input line 218.
-(pdftex.def)             Requested size: 284.52756pt x 262.27362pt.
-[13
+] (./Ornek_tez_Bahar.aux)
 
-] (./Ornek_tez_Bahar.aux) ) 
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 14970 strings out of 480616
- 299866 string characters out of 5906382
- 560704 words of memory out of 6000000
- 30563 multiletter control sequences out of 15000+600000
- 539802 words of font info for 50 fonts, out of 8000000 for 9000
+ 17359 strings out of 480616
+ 332079 string characters out of 5906382
+ 982817 words of memory out of 6000000
+ 32913 multiletter control sequences out of 15000+600000
+ 540436 words of font info for 53 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 68i,12n,64p,687b,1235s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmext
-ra/cmex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
-fb>
-Output written on Ornek_tez_Bahar.pdf (21 pages, 1520972 bytes).
+ 68i,12n,64p,764b,2902s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on Ornek_tez_Bahar.pdf (30 pages, 1884571 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 209 PDF objects out of 1000 (max. 8388607)
+ 125 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 88 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 133 words of extra memory for PDF output out of 10000 (max. 10000000)
 

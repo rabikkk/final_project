@@ -1,15 +1,20 @@
 \babel@toc {english}{}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture of LeNet-5, a Convolutional Neural Network, here for digits recognition. Each plane is a feature map, i.e. a set of units whose weights are constrained to be identical.}}{2}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Schematic for HTPA32x32d}}{4}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Schematic Design of Communication PCB}}{5}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces PCB Design of Communication PCB}}{5}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Mini Sensor Board}}{5}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Hand Gesture Dataset}}{6}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Close-Index-Last Page-Open Gestures}}{6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{4}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermal Image}}{5}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{6}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{8}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with Background}}{8}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Schematic Design of Communication PCB}}{9}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces PCB Design of Communication PCB}}{9}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{7}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermal Image}}{8}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{9}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{11}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with Background}}{11}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -10,11 +10,14 @@
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Hand Gesture Dataset}}{6}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Close-Index-Last Page-Open Gestures}}{6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{7}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermal Image}}{8}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{9}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{11}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with Background}}{11}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Software Flowchart}}{7}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{8}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Thermal Image}}{9}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{10}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{11}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Thermal Images with Background}}{12}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Software Flowchart}}{12}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Thermal Images 8Bit-12Bit-16Bit ADC Resolution)}}{13}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

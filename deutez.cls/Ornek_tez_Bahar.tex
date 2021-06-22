@@ -178,6 +178,14 @@ Using this dataset, a new train and test set was created for the static gestures
 \FloatBarrier
 
 \chapter{PROGRESS AND RESULT}
+In this section, the methods to be applied in the project are included.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.75\textwidth]{sema}
+	\caption{Software Flowchart}
+\end{figure}
+\FloatBarrier
 \section{Capture Thermopiles Image}
 \subsection{Heimann Thermopile Array Sensor communication}
 First, I provided the connections between the sensor and the Raspberry Pi in order to receive the image. I provided the communication with the mini card I made in 4.2 using the I2C protocol.
@@ -327,12 +335,104 @@ The hand was isolated from the background without using any image processing met
 
 \section{Hand Gesture Recognition}
 \subsection{Static Gesture Recognition}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{model}
+	\caption{Software Flowchart}
+\end{figure}
+\FloatBarrier
 \subsubsection{Model Architecture for LE-NET5}
 \subsubsection{Test Sets and Results}
 \subsection{Dynamic Gesture Recognition}
-%#neden olmadı?
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Trim Register 1 (write only)\cite{datasheet}}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x03} \\
+			\hline
+			Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+			\hline
+			Name & \multicolumn{2}{c|}{RFU} & \multicolumn{2}{c|}{REF\_CAL}& \multicolumn{4}{c|}{MBIT TRIM}\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\FloatBarrier
+
+REF\_CAL: selectable amplification\\
+
+MBIT\_TRIM: m = 4 to 12 (m+4) bit as ADC resolution\\
+
+In order to get the maximum efficiency from the sensor, to set the ADC Resolution to 16 bits, m of 12 was determined according to the data in the table. Since the framerate was too low, it was decided to speed up by sacrificing quality, but the quality was too low, revealing that ADC resolution should not be compromised. According to the resolutions, the images are as in figure 2.\\
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.23\textwidth]{rgb0}
+	\includegraphics[width=0.23\textwidth]{rgb1}
+	\includegraphics[width=0.23\textwidth]{rgb2}
+	\caption{Thermal Images 8Bit-12Bit-16Bit ADC Resolution)}
+\end{figure}
+\begin{table}[h!]
+	\begin{center}
+		\caption{Trim Register 2 (write only)\cite{datasheet}}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+	\hline
+	Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x04} \\
+	\hline
+	Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+	\hline
+	Name & \multicolumn{3}{c|}{RFU} & \multicolumn{5}{c|}{BIAS TRIM TOP}\\
+	\hline
+\end{tabular}
+	\end{center}
+\end{table}
+\FloatBarrier
+BIAS\_TRIM\_TOP:0 to 31 $ \longrightarrow $ $ 1\mu A $ to $ 13 \mu A $\\
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Trim Register 3 (write only)\cite{datasheet}}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x05} \\
+			\hline
+			Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+			\hline
+	Name & \multicolumn{3}{c|}{RFU} & \multicolumn{5}{c|}{BIAS TRIM BOT}\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\FloatBarrier
+BIAS\_TRIM\_BOT: 0 to 31 $ \longrightarrow $ $ 1\mu A $ to $ 13 \mu A $\\
+This setting is used to adjust the bias current of the ADC. A faster clock frequency requires a
+higher bias current setting.\cite{datasheet}\\
+
+Having ADC resolution 16 made us think that it did not affect us much. Afterward, it was said that if the BIAS current value is set to the maximum, its speed may increase. However, as a result of this experiment, almost no change was observed in the framerate.\\
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Trim Register 4 (write only)\cite{datasheet}}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x06} \\
+			\hline
+			Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+			\hline
+			Name & \multicolumn{2}{c|}{RFU} & \multicolumn{6}{c|}{CLK TRIM}\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\FloatBarrier
+CLK\_TRIM:0 to 63 $ \longrightarrow $ $ 1 MHz $ to $ 13 MHz $\\
+
+The point where we could most easily observe the increase in Frame Rate was the Clock Trim set. Although I set the maximum value, I could not get the desired result here.\\
 \section{Matching Gesture to Commands of Smart Mirror}
-%#yapılamadı
+
+In the project carried out by Vestel, friends who are interested in the smart mirror part are expected to define the gestures for the android side of the smart mirror.
+
 \chapter{COST ANALYSIS}
 \chapter{CONCLUSION}
 \chapter{APPENDIX}

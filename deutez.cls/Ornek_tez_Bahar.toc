@@ -19,20 +19,20 @@
 \contentsline {subsection}{\numberline {3.3.1}Multi-Modal Hand Gesture Dataset for Hand Gesture Recognition}{5}%
 \contentsline {section}{\numberline {3.4}Data Augmentation}{6}%
 \contentsline {chapter}{\numberline {4}PROGRESS AND RESULT}{7}%
-\contentsline {section}{\numberline {4.1}Capture Thermopiles Image}{7}%
-\contentsline {subsection}{\numberline {4.1.1}Heimann Thermopile Array Sensor communication}{7}%
-\contentsline {subsection}{\numberline {4.1.2}Calibrating images from Heimann Thermopile Array Sensor}{9}%
+\contentsline {section}{\numberline {4.1}Capture Thermopiles Image}{8}%
+\contentsline {subsection}{\numberline {4.1.1}Heimann Thermopile Array Sensor communication}{8}%
+\contentsline {subsection}{\numberline {4.1.2}Calibrating images from Heimann Thermopile Array Sensor}{10}%
 \contentsline {paragraph}{~}{11}%
-\contentsline {section}{\numberline {4.2}Hand Thermal Image Isolation}{11}%
-\contentsline {section}{\numberline {4.3}Hand Gesture Recognition}{11}%
-\contentsline {subsection}{\numberline {4.3.1}Static Gesture Recognition}{11}%
-\contentsline {subsubsection}{Model Architecture for LE-NET5}{11}%
-\contentsline {subsubsection}{Test Sets and Results}{11}%
-\contentsline {subsection}{\numberline {4.3.2}Dynamic Gesture Recognition}{11}%
-\contentsline {section}{\numberline {4.4}Matching Gesture to Commands of Smart Mirror}{11}%
-\contentsline {chapter}{\numberline {5}COST ANALYSIS}{12}%
-\contentsline {chapter}{\numberline {6}CONCLUSION}{13}%
-\contentsline {chapter}{\numberline {7}APPENDIX}{14}%
-\contentsline {subsection}{\numberline {7.0.1}Capture Image from Htpa32x32d Thermopile Array Sensor}{14}%
-\contentsline {subsection}{\numberline {7.0.2}Creating Dataset }{20}%
-\contentsline {subsection}{\numberline {7.0.3}Static Gesture Learning Algorithm}{21}%
+\contentsline {section}{\numberline {4.2}Hand Thermal Image Isolation}{12}%
+\contentsline {section}{\numberline {4.3}Hand Gesture Recognition}{12}%
+\contentsline {subsection}{\numberline {4.3.1}Static Gesture Recognition}{12}%
+\contentsline {subsubsection}{Model Architecture for LE-NET5}{13}%
+\contentsline {subsubsection}{Test Sets and Results}{13}%
+\contentsline {subsection}{\numberline {4.3.2}Dynamic Gesture Recognition}{13}%
+\contentsline {section}{\numberline {4.4}Matching Gesture to Commands of Smart Mirror}{14}%
+\contentsline {chapter}{\numberline {5}COST ANALYSIS}{15}%
+\contentsline {chapter}{\numberline {6}CONCLUSION}{16}%
+\contentsline {chapter}{\numberline {7}APPENDIX}{17}%
+\contentsline {subsection}{\numberline {7.0.1}Capture Image from Htpa32x32d Thermopile Array Sensor}{17}%
+\contentsline {subsection}{\numberline {7.0.2}Creating Dataset }{23}%
+\contentsline {subsection}{\numberline {7.0.3}Static Gesture Learning Algorithm}{24}%

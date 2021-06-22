@@ -5,7 +5,11 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Genaral Features HTPA32x32d}}{4}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Read Data 1 Command (Top Half of Array)}}{8}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Read Data 2 Command (Bottom Half of Array)}}{8}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Read Data 2 Command (Bottom Half of Array)}}{9}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Trim Register 1 (write only)\cite {datasheet}}}{13}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Trim Register 2 (write only)\cite {datasheet}}}{13}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Trim Register 3 (write only)\cite {datasheet}}}{14}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Trim Register 4 (write only)\cite {datasheet}}}{14}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

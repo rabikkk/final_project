@@ -1,0 +1,721 @@
+
+
+    
+    \hypertarget{sensor-configuration}{%
+\section{\textbf{Sensor Configuration}}{Sensor Configuration}\label{sensor-configuration}}
+
+    HTPA32x32d Library
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{periphery} \PY{k+kn}{import} \PY{n}{I2C}
+\PY{k+kn}{import} \PY{n+nn}{time}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{copy}
+\PY{k+kn}{import} \PY{n+nn}{struct}
+
+\PY{k}{class} \PY{n+nc}{HTPA}\PY{p}{:}
+
+
+	\PY{k}{def} \PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{address}\PY{p}{)}\PY{p}{:}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address} \PY{o}{=} \PY{n}{address}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c} \PY{o}{=} \PY{n}{I2C}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/dev/i2c\PYZhy{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+		\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Grabbing EEPROM data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+		\PY{n}{eeprom} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}eeprom}\PY{p}{(}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{extract\PYZus{}eeprom\PYZus{}parameters}\PY{p}{(}\PY{n}{eeprom}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eeprom} \PY{o}{=} \PY{n}{eeprom}
+		\PY{n}{wakeup\PYZus{}and\PYZus{}blind} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x01}\PY{p}{,} \PY{l+m+mh}{0x01}\PY{p}{)}  \PY{c+c1}{\PYZsh{} wake up the device}
+		\PY{c+c1}{\PYZsh{} set ADC resolution to 16 bits}
+		\PY{n}{adc\PYZus{}res} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x03}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mbit\PYZus{}value}\PY{p}{)}\PY{c+c1}{\PYZsh{} set ADC resolution in eeprom}
+		\PY{n}{pull\PYZus{}ups} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x09}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pu\PYZus{}value}\PY{p}{)}\PY{c+c1}{\PYZsh{}pu value in eeprom}
+
+		\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Initializing capture settings}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{wakeup\PYZus{}and\PYZus{}blind}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{adc\PYZus{}res}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{pull\PYZus{}ups}\PY{p}{)}
+
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}bias\PYZus{}current}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias\PYZus{}value}\PY{p}{)}  \PY{c+c1}{\PYZsh{} bias value on eeprom}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}clock\PYZus{}speed}\PY{p}{(}\PY{l+m+mh}{0x050}\PY{p}{)}  \PY{c+c1}{\PYZsh{} clk value on eeprom self.clk\PYZus{}value}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{set\PYZus{}cm\PYZus{}current}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bpa\PYZus{}value}\PY{p}{)}  \PY{c+c1}{\PYZsh{} BPA value in eeprom}
+
+		\PY{c+c1}{\PYZsh{} initialize offset to zero}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{offset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+
+
+
+	\PY{k}{def} \PY{n+nf}{get\PYZus{}eeprom}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eeprom\PYZus{}address}\PY{o}{=}\PY{l+m+mh}{0x50}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}Talking EEPROM}
+		\PY{n}{query} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{,} \PY{l+m+mh}{0x00}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}
+		    \PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{8000}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 8 Kbit Data from EEPROM}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n}{eeprom\PYZus{}address}\PY{p}{,} \PY{n}{query}\PY{p}{)}
+		\PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{query}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+
+
+	\PY{k}{def} \PY{n+nf}{extract\PYZus{}eeprom\PYZus{}parameters}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eeprom}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}EEPROM Data}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCompgrad} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0340}\PY{p}{:}\PY{l+m+mh}{0x0540}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0341}\PY{p}{:}\PY{l+m+mh}{0x0540}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCompoff} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0540}\PY{p}{:}\PY{l+m+mh}{0x0740}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0541}\PY{p}{:}\PY{l+m+mh}{0x0740}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+
+		\PY{n}{ThGrad} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0740}\PY{p}{:}\PY{l+m+mh}{0x0F40}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0741}\PY{p}{:}\PY{l+m+mh}{0x0F40}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{ThGrad} \PY{o}{=} \PY{p}{[}\PY{n}{tg} \PY{o}{\PYZhy{}} \PY{l+m+mi}{65536} \PY{k}{if} \PY{n}{tg} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{32768} \PY{k}{else} \PY{n}{tg} \PY{k}{for} \PY{n}{tg} \PY{o+ow}{in} \PY{n}{ThGrad}\PY{p}{]}
+		\PY{n}{ThGrad} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{ThGrad}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+		\PY{n}{ThGrad}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flipud}\PY{p}{(}\PY{n}{ThGrad}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ThGrad} \PY{o}{=} \PY{n}{ThGrad}
+
+		\PY{n}{ThOffset} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0F40}\PY{p}{:}\PY{l+m+mh}{0x1740}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0F41}\PY{p}{:}\PY{l+m+mh}{0x1740}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{ThOffset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{ThOffset}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+		\PY{n}{ThOffset}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flipud}\PY{p}{(}\PY{n}{ThOffset}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ThOffset} \PY{o}{=} \PY{n}{ThOffset}
+
+		\PY{n}{P} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x1740}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x1741}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+		\PY{n}{P}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flipud}\PY{p}{(}\PY{n}{P}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P} \PY{o}{=} \PY{n}{P}
+
+		\PY{n}{epsilon} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x000D}\PY{p}{]}\PY{p}{)}
+		\PY{n}{GlobalGain} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0055}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0056}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{Pmin} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0000}\PY{p}{:}\PY{l+m+mh}{0x0004}\PY{p}{]}
+		\PY{n}{Pmax} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0004}\PY{p}{:}\PY{l+m+mh}{0x0008}\PY{p}{]}
+		\PY{n}{Pmin} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reduce}\PY{p}{(}
+		    \PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{,} \PY{p}{[}\PY{n+nb}{chr}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{Pmin}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+		\PY{n}{Pmax} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reduce}\PY{p}{(}
+		    \PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{,} \PY{p}{[}\PY{n+nb}{chr}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{Pmax}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PixC} \PY{o}{=} \PY{p}{(}\PY{n}{P} \PY{o}{*} \PY{p}{(}\PY{n}{Pmax} \PY{o}{\PYZhy{}} \PY{n}{Pmin}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{65535.} \PY{o}{+} \PY{n}{Pmin}\PY{p}{)} \PY{o}{*} \PYZbs{}
+		             \PY{p}{(}\PY{n}{epsilon} \PY{o}{/} \PY{l+m+mi}{100}\PY{p}{)} \PY{o}{*} \PY{n+nb}{float}\PY{p}{(}\PY{n}{GlobalGain}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{100}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gradScale} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0008}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCalib1} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0046}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0047}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCalib} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0046}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0047}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCalib2} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0048}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0049}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Vdd} \PY{o}{=} \PY{l+m+mf}{3000.0}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddScaling} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x004E}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Vddoff} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x004F}\PY{p}{]}
+
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PtatCalib1} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x003C}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x003D}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PtatCalib2} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x003E}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x003F}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{PTATgradient} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0034}\PY{p}{:}\PY{l+m+mh}{0x0038}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PTATgradient} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reduce}\PY{p}{(}
+		    \PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{,} \PY{p}{[}\PY{n+nb}{chr}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{PTATgradient}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+		\PY{n}{PTAToffset} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x0038}\PY{p}{:}\PY{l+m+mh}{0x003c}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PTAToffset} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reduce}\PY{p}{(}
+		    \PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{,} \PY{p}{[}\PY{n+nb}{chr}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{PTAToffset}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{clk\PYZus{}value} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x001C}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bias\PYZus{}value} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x001B}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pu\PYZus{}value} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x001E}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mbit\PYZus{}value} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x001A}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bpa\PYZus{}value} \PY{o}{=} \PY{n}{eeprom}\PY{p}{[}\PY{l+m+mh}{0x001D}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{subt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+		
+		
+	\PY{k}{def} \PY{n+nf}{set\PYZus{}clock\PYZus{}speed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{clk}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}set clock speed}
+		\PY{k}{if} \PY{n}{clk} \PY{o}{\PYZgt{}} \PY{l+m+mi}{63}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Max 64 Hz}
+			\PY{n}{clk} \PY{o}{=} \PY{l+m+mi}{63}
+		\PY{k}{if} \PY{n}{clk} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+			\PY{n}{clk} \PY{o}{=} \PY{l+m+mi}{0}
+		\PY{n}{clk} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{clk}\PY{p}{)}
+		\PY{n+nb}{print}\PY{p}{(}\PY{n}{clk}\PY{p}{)}
+		\PY{c+c1}{\PYZsh{} The measure time depends on the clock frequency settings.(optimal value)}
+		\PY{n}{clk\PYZus{}speed} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x06}\PY{p}{,} \PY{n}{clk}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{clk\PYZus{}speed}\PY{p}{)}  \PY{c+c1}{\PYZsh{} send clock data}
+
+	\PY{c+c1}{\PYZsh{} This setting is used to adjust the common mode voltage of the preamplifier.}
+
+	
+	\PY{k}{def} \PY{n+nf}{set\PYZus{}cm\PYZus{}current}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{cm}\PY{p}{)}\PY{p}{:}
+		\PY{n}{cm} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cm}\PY{p}{)}
+		\PY{n}{cm\PYZus{}top} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x07}\PY{p}{,} \PY{n}{cm}\PY{p}{)}
+		\PY{n}{cm\PYZus{}bottom} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x08}\PY{p}{,} \PY{n}{cm}\PY{p}{)}
+
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{cm\PYZus{}top}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{cm\PYZus{}bottom}\PY{p}{)}
+
+
+	\PY{k}{def} \PY{n+nf}{set\PYZus{}bias\PYZus{}current}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{bias}\PY{p}{)}\PY{p}{:}
+		\PY{n}{bias} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{bias}\PY{p}{)}
+		\PY{c+c1}{\PYZsh{} This setting is used to adjust the bias current of the ADC. A faster clock frequency requires a higher bias current setting.}
+		\PY{n}{bias\PYZus{}top} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x04}\PY{p}{,} \PY{n}{bias}\PY{p}{)}
+		\PY{c+c1}{\PYZsh{} This setting is used to adjust the bias current of the ADC. A faster clock frequency requires a higher bias current setting.}
+		\PY{n}{bias\PYZus{}bottom} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x05}\PY{p}{,} \PY{n}{bias}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{bias\PYZus{}top}\PY{p}{)}  \PY{c+c1}{\PYZsh{} send bias top data}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{bias\PYZus{}bottom}\PY{p}{)}  \PY{c+c1}{\PYZsh{} send bias bottom data}
+
+
+    \PY{k}{def} \PY{n+nf}{temperature\PYZus{}compensation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{im}\PY{p}{,} \PY{n}{ptat}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}Thermal Offset Calculate}
+	    \PY{n}{comp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+	    \PY{n}{Ta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{ptat}\PY{p}{)} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PTATgradient} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PTAToffset}
+		\PY{c+c1}{\PYZsh{}     temperature compensated voltage}
+	    \PY{n}{comp} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ThGrad} \PY{o}{*} \PY{n}{Ta}\PY{p}{)} \PY{o}{/} \PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gradScale}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ThOffset}
+	    \PY{n}{Vcomp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{im}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{comp}
+	    \PY{k}{return} \PY{n}{Vcomp}
+
+	\PY{k}{def} \PY{n+nf}{offset\PYZus{}compensation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{im}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}general environment offset send offset data}
+		\PY{k}{return} \PY{n}{im}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{offset}
+		
+	\PY{k}{def} \PY{n+nf}{sensitivity\PYZus{}compensation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{im}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}object temperature }
+		\PY{k}{return} \PY{p}{(}\PY{n}{im}\PY{o}{*}\PY{l+m+mi}{100000000}\PY{p}{)}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{PixC}
+
+	\PY{k}{def} \PY{n+nf}{measure\PYZus{}observed\PYZus{}offset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}Measuring observed offsets}
+		\PY{n}{mean\PYZus{}offset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+		\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+			\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    frame }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+			\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{pt}\PY{p}{)} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{capture\PYZus{}image}\PY{p}{(}\PY{p}{)}
+			\PY{n}{im} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{temperature\PYZus{}compensation}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{pt}\PY{p}{)}
+			\PY{n}{mean\PYZus{}offset} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{im}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{10.0}	
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{offset} \PY{o}{=} \PY{n}{mean\PYZus{}offset}
+
+
+	\PY{k}{def} \PY{n+nf}{Vdd\PYZus{}Comperasition}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{im}\PY{p}{,}\PY{n}{ptat}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}Vdd Comperasition calculate}
+		\PY{n}{VVddComp}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+		\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+			\PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+				\PY{n}{VVddComp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCompgrad}\PY{p}{[}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{128}]*np.mean(ptat))/pow(2, self.VddScaling)+self.VddCompoff[(j+i*32)\PYZpc{}128])/pow(2, self.Vddoff))*(self.Vdd\PYZhy{}self.VddCalib1\PYZhy{}((self.VddCalib2\PYZhy{}self.VddCalib1)/(self.PtatCalib2\PYZhy{}self.PtatCalib1))*(np.mean(ptat)\PYZhy{}self.PtatCalib1)))
+		\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+			\PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+				\PY{n}{VVddComp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VddCompgrad}\PY{p}{[}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{128}+128]*np.mean(ptat))/pow(2, self.VddScaling)+self.VddCompoff[(j+i*32)\PYZpc{}128+128])/pow(2, self.Vddoff))*(self.Vdd\PYZhy{}self.VddCalib1\PYZhy{}((self.VddCalib2\PYZhy{}self.VddCalib1)/(self.PtatCalib2\PYZhy{}self.PtatCalib1))*(np.mean(ptat)\PYZhy{}self.PtatCalib1)))
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VVddComp}\PY{o}{=}\PY{n}{VVddComp}
+		\PY{k}{return} \PY{n}{im}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{VVddComp}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+
+	\PY{k}{def} \PY{n+nf}{measure\PYZus{}electrical\PYZus{}offset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{blind}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}measure\PYZus{}electrical\PYZus{}offset}
+		\PY{n}{pixel\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{)}
+		\PY{n}{ptats} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
+        
+        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}expose\PYZus{}block\PYZus{}command}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{blind}\PY{o}{=}\PY{n}{blind}\PY{p}{)}\PY{p}{,} \PY{n}{wait}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+
+		\PY{n}{query} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x02}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+
+		\PY{n}{read\PYZus{}block} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x0A}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{258}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{read\PYZus{}block}\PY{p}{)}
+		\PY{n}{top\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{copy}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{read\PYZus{}block}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+
+		\PY{n}{read\PYZus{}block} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x0B}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{258}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{read\PYZus{}block}\PY{p}{)}
+		\PY{n}{bottom\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{copy}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{read\PYZus{}block}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+
+		\PY{n}{top\PYZus{}data} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+		\PY{n}{bottom\PYZus{}data} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} bottom data is in a weird shape}
+		\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{128}\PY{p}{]} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+		\PY{c+c1}{\PYZsh{} bottom data is in a weird shape}
+		\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{224}\PY{p}{:}\PY{l+m+mi}{256}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{33}\PY{p}{]}
+		\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{192}\PY{p}{:}\PY{l+m+mi}{224}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{33}\PY{p}{:}\PY{l+m+mi}{65}\PY{p}{]}
+		\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{160}\PY{p}{:}\PY{l+m+mi}{192}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{65}\PY{p}{:}\PY{l+m+mi}{97}\PY{p}{]}
+		\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{128}\PY{p}{:}\PY{l+m+mi}{160}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{97}\PY{p}{:}\PY{p}{]}
+		\PY{n}{ptats}\PY{p}{[}\PY{n}{block}\PY{p}{]} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+		\PY{n}{ptats}\PY{p}{[}\PY{l+m+mi}{7}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+
+        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{elloff}\PY{o}{=}\PY{n}{pixel\PYZus{}values}\PY{p}{;}
+
+
+	\PY{k}{def} \PY{n+nf}{electrical\PYZus{}offset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{im}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}electrical offset calculate}
+        \PY{n}{V\PYZus{}new} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+	    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+	        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+                \PY{n}{V\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{elloff}\PY{p}{[}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{128}]
+	    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+	        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{:}
+                \PY{n}{V\PYZus{}new}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{elloff}\PY{p}{[}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{128}+128]
+        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{V\PYZus{}new}\PY{o}{=}\PY{n}{V\PYZus{}new}
+		\PY{k}{return} \PY{n}{im} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{V\PYZus{}new}
+	\PY{k}{def} \PY{n+nf}{capture\PYZus{}image}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{blind}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+		\PY{n}{pixel\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1024}\PY{p}{)}
+		\PY{n}{ptats} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}
+
+		\PY{k}{for} \PY{n}{block} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+			\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Exposing block }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{block}\PY{p}{)}\PY{p}{)}
+			\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}expose\PYZus{}block\PYZus{}command}\PY{p}{(}\PY{n}{block}\PY{p}{,} \PY{n}{blind}\PY{o}{=}\PY{n}{blind}\PY{p}{)}\PY{p}{,} \PY{n}{wait}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+
+			\PY{n}{query} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x02}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+			\PY{n}{expected} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{p}{(}\PY{n}{block} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{4}\PY{p}{)}
+
+			\PY{n}{done} \PY{o}{=} \PY{k+kc}{False}
+
+			\PY{k}{while} \PY{o+ow}{not} \PY{n}{done}\PY{p}{:}
+				\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{query}\PY{p}{)}
+
+				\PY{k}{if} \PY{o+ow}{not} \PY{p}{(}\PY{n}{query}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{n}{expected}\PY{p}{)}\PY{p}{:}
+				\PY{k}{else}\PY{p}{:}
+					\PY{n}{done} \PY{o}{=} \PY{k+kc}{True}
+
+			\PY{n}{read\PYZus{}block} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x0A}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{258}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+			\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{read\PYZus{}block}\PY{p}{)}
+			\PY{n}{top\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{copy}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{read\PYZus{}block}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+
+			\PY{n}{read\PYZus{}block} \PY{o}{=} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x0B}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{l+m+mh}{0x00}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{258}\PY{p}{,} \PY{n}{read}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+			\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{read\PYZus{}block}\PY{p}{)}
+			\PY{n}{bottom\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{copy}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{read\PYZus{}block}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+
+			\PY{n}{top\PYZus{}data} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+			\PY{n}{bottom\PYZus{}data} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{8}\PY{p}{)}
+
+			\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{o}{+}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{128}\PY{o}{+}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+			\PY{c+c1}{\PYZsh{} bottom data is in a weird shape}
+			\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{992}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{1024}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{33}\PY{p}{]}
+			\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{960}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{992}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{33}\PY{p}{:}\PY{l+m+mi}{65}\PY{p}{]}
+			\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{928}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{960}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{65}\PY{p}{:}\PY{l+m+mi}{97}\PY{p}{]}
+			\PY{n}{pixel\PYZus{}values}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{896}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}\PY{p}{(}\PY{l+m+mi}{928}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{o}{*}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{97}\PY{p}{:}\PY{p}{]}
+
+			\PY{n}{ptats}\PY{p}{[}\PY{n}{block}\PY{p}{]} \PY{o}{=} \PY{n}{top\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+			\PY{n}{ptats}\PY{p}{[}\PY{l+m+mi}{7}\PY{o}{\PYZhy{}}\PY{n}{block}\PY{p}{]} \PY{o}{=} \PY{n}{bottom\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+
+		\PY{n}{pixel\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{pixel\PYZus{}values}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+
+		\PY{k}{return} \PY{p}{(}\PY{n}{pixel\PYZus{}values}\PY{p}{,} \PY{n}{ptats}\PY{p}{)}
+
+
+	\PY{k}{def} \PY{n+nf}{generate\PYZus{}command}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{register}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}periphery library register activate}
+		\PY{k}{return} \PY{p}{[}\PY{n}{I2C}\PY{o}{.}\PY{n}{Message}\PY{p}{(}\PY{p}{[}\PY{n}{register}\PY{p}{,} \PY{n}{value}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+
+
+	\PY{k}{def} \PY{n+nf}{generate\PYZus{}expose\PYZus{}block\PYZus{}command}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{block}\PY{p}{,} \PY{n}{blind}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}read data command}
+		\PY{k}{if} \PY{n}{blind}\PY{p}{:}
+			\PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x01}\PY{p}{,} \PY{l+m+mh}{0x0B}\PY{p}{)}
+		\PY{k}{else}\PY{p}{:}
+			\PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x01}\PY{p}{,} \PY{l+m+mh}{0x09} \PY{o}{+} \PY{p}{(}\PY{n}{block} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+
+
+	\PY{k}{def} \PY{n+nf}{send\PYZus{}command}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{cmd}\PY{p}{,} \PY{n}{wait}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}send data to registers}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{i2c}\PY{o}{.}\PY{n}{transfer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{address}\PY{p}{,} \PY{n}{cmd}\PY{p}{)}
+		\PY{k}{if} \PY{n}{wait}\PY{p}{:}
+			\PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.005}\PY{p}{)} \PY{c+c1}{\PYZsh{} sleep for 5 ms}
+
+
+	\PY{k}{def} \PY{n+nf}{close}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}closed device}
+		\PY{n}{sleep} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generate\PYZus{}command}\PY{p}{(}\PY{l+m+mh}{0x01}\PY{p}{,} \PY{l+m+mh}{0x00}\PY{p}{)}
+		\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{send\PYZus{}command}\PY{p}{(}\PY{n}{sleep}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+ \subsection{   Capture Image}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{cv2}
+\PY{k+kn}{from} \PY{n+nn}{htpa} \PY{k+kn}{import} \PY{o}{*}
+\PY{k+kn}{import} \PY{n+nn}{pickle}
+\PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{dev} \PY{o}{=} \PY{n}{HTPA}\PY{p}{(}\PY{l+m+mh}{0x1A}\PY{p}{)}
+
+\PY{k}{while}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{==} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{n}{dev}\PY{o}{.}\PY{n}{measure\PYZus{}observed\PYZus{}offset}\PY{p}{(}\PY{p}{)}
+    \PY{n}{dev}\PY{o}{.}\PY{n}{measure\PYZus{}electrical\PYZus{}offset}\PY{p}{(}\PY{p}{)}
+
+    \PY{n}{pixel\PYZus{}values}\PY{p}{,} \PY{n}{ptats}\PY{p}{)} \PY{o}{=} \PY{n}{dev}\PY{o}{.}\PY{n}{capture\PYZus{}image}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Capture Image}
+    \PY{n}{im} \PY{o}{=} \PY{n}{dev}\PY{o}{.}\PY{n}{temperature\PYZus{}compensation}\PY{p}{(}\PY{n}{pixel\PYZus{}values}\PY{p}{,} \PY{n}{ptats}\PY{p}{)}  \PY{c+c1}{\PYZsh{} thermal offset}
+    \PY{n}{im} \PY{o}{=} \PY{n}{dev}\PY{o}{.}\PY{n}{offset\PYZus{}compensation}\PY{p}{(}\PY{n}{im}\PY{p}{)}  \PY{c+c1}{\PYZsh{} general offset}
+    \PY{k}{if}\PY{p}{(}\PY{n}{k}\PY{o}{\PYZgt{}}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{n}{im}\PY{o}{=}\PY{n}{dev}\PY{o}{.}\PY{n}{electrical\PYZus{}offset}\PY{p}{(}\PY{n}{im}\PY{p}{)}\PY{c+c1}{\PYZsh{}electrical offset}
+    \PY{n}{im}\PY{o}{=}\PY{n}{dev}\PY{o}{.}\PY{n}{Vdd\PYZus{}Comperasition}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}Vdd Comperasition}
+    \PY{n}{im} \PY{o}{=} \PY{n}{dev}\PY{o}{.}\PY{n}{sensitivity\PYZus{}compensation}\PY{p}{(}\PY{n}{im}\PY{p}{)}\PY{c+c1}{\PYZsh{}Sensitivity}
+
+    \PY{c+c1}{\PYZsh{} resize and scale image to make it more viewable on raspberry pi screen}
+    \PY{n}{im} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{im}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{fx}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{fy}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}	
+    \PY{n}{im} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{im}\PY{p}{)}
+    \PY{n}{im} \PY{o}{/}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{im}\PY{p}{)}
+    \PY{n}{imcolor}\PY{o}{=}\PY{n}{cv2}\PY{o}{.}\PY{n}{applyColorMap}\PY{p}{(}\PY{n}{im}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLORMAP\PYZus{}JET}\PY{p}{)}
+
+    \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frame}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{im}\PY{p}{)}
+    \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frame1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{imcolor}\PY{p}{)}
+
+    \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+
+    \PY{k}{if} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{l+m+mh}{0xFF} \PY{o}{==} \PY{n+nb}{ord}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+        \PY{k}{break}
+
+\PY{n}{dev}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{creating-dataset}{%
+\section{\texorpdfstring{\textbf{Creating
+Dataset}}{Creating Dataset}}\label{creating-dataset}}
+
+\subsection{    Resize Dataset}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{cv2}
+\PY{k+kn}{import} \PY{n+nn}{os}
+\PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k+kn}{import} \PY{n}{Image}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+  
+\PY{n}{src}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/open\PYZus{}train/five/}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{filenames\PYZus{}train}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{src}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\PY{k}{for} \PY{n}{f\PYZus{}name} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}train}\PY{p}{:}
+    \PY{n}{im}\PY{o}{=}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{src}\PY{o}{+}\PY{n}{f\PYZus{}name}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Size of the image in pixels (size of orginal image)}
+    \PY{c+c1}{\PYZsh{} (This is not mandatory)}
+\PY{c+c1}{\PYZsh{}    width, height = im.size}
+  
+    \PY{c+c1}{\PYZsh{} Setting the points for cropped image}
+    \PY{c+c1}{\PYZsh{} Setting the points for cropped image}
+    \PY{n}{left} \PY{o}{=} \PY{l+m+mi}{120}
+    \PY{n}{top} \PY{o}{=} \PY{l+m+mi}{45}
+    \PY{n}{right} \PY{o}{=} \PY{l+m+mi}{390}
+    \PY{n}{bottom} \PY{o}{=} \PY{l+m+mi}{240}
+  
+    \PY{c+c1}{\PYZsh{} Cropped image of above dimension}
+    \PY{c+c1}{\PYZsh{} (It will not change orginal image)}
+    \PY{c+c1}{\PYZsh{}im1 = im.crop((left, top, right, bottom))}
+    \PY{n}{im1}\PY{o}{=}\PY{n}{im1}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+    \PY{n}{im1}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/open\PYZus{}train/five\PYZus{}new/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{f\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Dataset Augmentation}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} example of images augmentation}
+\PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{expand\PYZus{}dims}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k+kn}{import} \PY{n}{load\PYZus{}img}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k+kn}{import} \PY{n}{img\PYZus{}to\PYZus{}array}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k+kn}{import} \PY{n}{ImageDataGenerator}
+\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k+kn}{import} \PY{n}{pyplot}
+\PY{k+kn}{import} \PY{n+nn}{os}
+\PY{c+c1}{\PYZsh{} Passing the path of the image directory}
+\PY{n}{src}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/close/}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{path1}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/train/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;}
+\PY{n}{filenames\PYZus{}train}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{src}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\PY{k}{for} \PY{n}{f\PYZus{}name} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}train}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} load the image}
+    \PY{n}{img} \PY{o}{=} \PY{n}{load\PYZus{}img}\PY{p}{(}\PY{n}{src}\PY{o}{+}\PY{n}{f\PYZus{}name}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} convert to numpy array}
+    \PY{n}{data} \PY{o}{=} \PY{n}{img\PYZus{}to\PYZus{}array}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} expand dimension to one sample}
+    \PY{n}{samples} \PY{o}{=} \PY{n}{expand\PYZus{}dims}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} create image data augmentation generator}
+    \PY{n}{datagen1} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}\PY{n}{zoom\PYZus{}range}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} create image data augmentation generator}
+    \PY{n}{datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}\PY{n}{brightness\PYZus{}range}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.6}\PY{p}{,}\PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} create image data augmentation generator}
+    \PY{n}{datagen2} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}\PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} prepare iterator}
+    \PY{n}{it} \PY{o}{=} \PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{it1} \PY{o}{=} \PY{n}{datagen1}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{it2} \PY{o}{=} \PY{n}{datagen2}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{it} \PY{o}{=} \PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{save\PYZus{}to\PYZus{}dir}\PY{o}{=}\PY{n}{path1}\PY{p}{,} \PY{n}{save\PYZus{}prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index\PYZus{}test03}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{save\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{it1} \PY{o}{=} \PY{n}{datagen1}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{save\PYZus{}to\PYZus{}dir}\PY{o}{=}\PY{n}{path1}\PY{p}{,} \PY{n}{save\PYZus{}prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index\PYZus{}test4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{save\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{it2}\PY{o}{=} \PY{n}{datagen2}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{save\PYZus{}to\PYZus{}dir}\PY{o}{=}\PY{n}{path1}\PY{p}{,} \PY{n}{save\PYZus{}prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index\PYZus{}test5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{save\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{static-gesture-learning-model}{%
+\section{\texorpdfstring{\textbf{Static Gesture Learning
+Model}}{Static Gesture Learning Model}}\label{static-gesture-learning-model}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{keras}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k+kn}{import} \PY{n}{ImageDataGenerator}\PY{p}{,}\PY{n}{load\PYZus{}img}
+\PY{c+c1}{\PYZsh{}from keras.utils import to\PYZus{}categorical}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{np\PYZus{}utils} \PY{k+kn}{import} \PY{n}{to\PYZus{}categorical}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{random}
+\PY{k+kn}{import} \PY{n+nn}{os}
+\PY{k+kn}{import} \PY{n+nn}{cv2}
+\PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k+kn}{import} \PY{n}{Image}\PY{p}{,}\PY{n}{ImageOps}
+\PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k+kn}{import} \PY{n}{asarray}  
+\end{Verbatim}
+\end{tcolorbox}
+
+   \subsection{ Adding Train\_set and Test\_set}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}Training Set}
+\PY{n}{src}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/train/}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{filenames\PYZus{}train}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{src}\PY{p}{)}
+
+\PY{n}{categories\PYZus{}train}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{image\PYZus{}train}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\PY{n}{close}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{index}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{last}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{open1}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{k}{for} \PY{n}{f\PYZus{}name} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}train}\PY{p}{:}
+    \PY{n}{image}\PY{o}{=}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{src}\PY{o}{+}\PY{n}{f\PYZus{}name}\PY{p}{)}\PY{o}{.}\PY{n}{convert}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RGB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{image}\PY{o}{=}\PY{n}{ImageOps}\PY{o}{.}\PY{n}{grayscale}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{}image=cv2.imread(src+f\PYZus{}name)}
+    \PY{c+c1}{\PYZsh{}image=cv2.cvtColor(image, cv2.COLOR\PYZus{}BGR2GRAY)}
+    \PY{n}{numpydata} \PY{o}{=} \PY{n}{asarray}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+    \PY{n}{image\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{numpydata}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{}print(len(image\PYZus{}train))}
+    \PY{n}{category}\PY{o}{=}\PY{n}{f\PYZus{}name}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{if} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{close}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}    
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+        \PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{index}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1} 
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+        \PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{last}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{open1}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+
+\PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{filenames\PYZus{}train}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{categories\PYZus{}train}
+\PY{p}{\PYZcb{}}\PY{p}{)}
+
+\PY{n}{image\PYZus{}train}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{image\PYZus{}train}\PY{p}{)}
+\PY{n}{image\PYZus{}train} \PY{o}{=} \PY{n}{image\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{image\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{image\PYZus{}train} \PY{o}{=} \PY{n}{image\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float32}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{255.0}
+\PY{n}{categories\PYZus{}train}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{categories\PYZus{}train}\PY{p}{)}
+\PY{n}{categories\PYZus{}train}\PY{o}{=}\PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{image\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{categories\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{close}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{last}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{open1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{index}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}print(categories\PYZus{}train)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}Test Set}
+\PY{n}{src}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/test/}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{filenames\PYZus{}test}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{src}\PY{p}{)}
+
+\PY{n}{categories\PYZus{}test}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{image\PYZus{}test}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{close}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{index}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{last}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n}{open1}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\PY{k}{for} \PY{n}{f\PYZus{}name} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}test}\PY{p}{:}
+    \PY{n}{image}\PY{o}{=}\PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{src}\PY{o}{+}\PY{n}{f\PYZus{}name}\PY{p}{)}\PY{o}{.}\PY{n}{convert}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RGB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{image}\PY{o}{=}\PY{n}{ImageOps}\PY{o}{.}\PY{n}{grayscale}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+     \PY{c+c1}{\PYZsh{}image=cv2.imread(src+f\PYZus{}name)}
+   \PY{c+c1}{\PYZsh{}image=cv2.cvtColor(image, cv2.COLOR\PYZus{}BGR2GRAY)}
+    \PY{n}{numpydata} \PY{o}{=} \PY{n}{asarray}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+    \PY{n}{image\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{numpydata}\PY{p}{)}
+   \PY{c+c1}{\PYZsh{} print(len(image\PYZus{}test))}
+    \PY{n}{category}\PY{o}{=}\PY{n}{f\PYZus{}name}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{if} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{close}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}  
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+        \PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{index}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1} 
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+        \PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{last}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{open1}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+
+
+\PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{filenames\PYZus{}test}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{categories\PYZus{}test}
+\PY{p}{\PYZcb{}}\PY{p}{)}
+\PY{n}{image\PYZus{}test}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{p}{)}
+\PY{n}{image\PYZus{}test} \PY{o}{=} \PY{n}{image\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{image\PYZus{}test} \PY{o}{=} \PY{n}{image\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float32}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{255.0}
+\PY{c+c1}{\PYZsh{}image\PYZus{}test =image\PYZus{}test.reshape(len(image\PYZus{}test),(32,32))}
+\PY{c+c1}{\PYZsh{}image\PYZus{}test= np.ndarray(shape=(2050, 32, 32, 1))}
+\PY{c+c1}{\PYZsh{}image\PYZus{}test=image\PYZus{}test/255.0}
+\PY{c+c1}{\PYZsh{}image\PYZus{}test=image\PYZus{}test.reshape(2008,32,32)}
+\PY{n}{categories\PYZus{}test}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{categories\PYZus{}test}\PY{p}{)}
+\PY{n}{categories\PYZus{}test}\PY{o}{=}\PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{filenames\PYZus{}test}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{categories\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{close}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{last}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{open1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Model}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{keras} 
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k+kn}{import} \PY{n}{Sequential}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k+kn}{import} \PY{n}{Conv2D}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k+kn}{import} \PY{n}{MaxPooling2D}\PY{p}{,}\PY{n}{AveragePooling2D}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k+kn}{import} \PY{n}{Flatten}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k+kn}{import} \PY{n}{Dense}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k+kn}{import} \PY{n}{Dropout}\PY{p}{,}\PY{n}{LeakyReLU}
+\PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k+kn}{import} \PY{n}{plot\PYZus{}model}
+\PY{c+c1}{\PYZsh{}Instantieate an empty model}
+\PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Static\PYZus{}Gesture\PYZus{}Model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{}C1 Convolutional Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}S2 Pooling Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}C3 Convolutional Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters}\PY{o}{=}\PY{l+m+mi}{48}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}S4 Pooling Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{strides}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}Flatten the CNN output so that we can connect it with fully connected layers}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}Fully Connected Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}Fully Connected Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{84}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}Fully Connected Layer}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}Output Layer with Softmax Activation}
+\PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Learning}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{keras}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k+kn}{import} \PY{n}{ModelCheckpoint}
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k+kn}{import} \PY{n}{EarlyStopping}
+\PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The length of list is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{image\PYZus{}train}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The length of list is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} early stopping}
+\PY{n}{early\PYZus{}stop} \PY{o}{=} \PY{n}{EarlyStopping}\PY{p}{(}\PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{opt} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{optimizers}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.000025}\PY{p}{)}
+\PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{opt}\PY{p}{,} \PY{c+c1}{\PYZsh{}\PYZsq{}adam\PYZsq{}}
+              \PY{n}{loss}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{keras}\PY{o}{.}\PY{n}{losses}\PY{o}{.}\PY{n}{SparseCategoricalCrossentropy}\PY{p}{(}\PY{n}{from\PYZus{}logits}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+              \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{n}{model\PYZus{}name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{filepath}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/learning/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.hdf5}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{checkpoint} \PY{o}{=} \PY{n}{ModelCheckpoint}\PY{p}{(}\PY{n}{filepath}\PY{p}{,} \PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{save\PYZus{}best\PYZus{}only}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{logpath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/learning}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.log}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{csv\PYZus{}logger} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{callbacks}\PY{o}{.}\PY{n}{CSVLogger}\PY{p}{(}\PY{n}{logpath}\PY{p}{)}
+\PY{n}{callbacks\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{checkpoint}\PY{p}{,}\PY{n}{csv\PYZus{}logger}\PY{p}{]}
+\PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{image\PYZus{}train}\PY{p}{,} \PY{n}{categories\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{p}{,} \PY{n}{categories\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{callbacks\PYZus{}list}\PY{p}{,}\PY{n}{early\PYZus{}stop}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{}callbacks=[callbacks\PYZus{}list,early\PYZus{}stop]}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Model Learning Plot}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{n}{acc} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n}{val\PYZus{}acc} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+
+\PY{n}{epochs} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{acc}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{val\PYZus{}acc}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training and validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{test\PYZus{}loss}\PY{p}{,} \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{image\PYZus{}test}\PY{p}{,} \PY{n}{categories\PYZus{}test}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}loss}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Model Learning Plot
+}
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n}{val\PYZus{}loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{loss}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{val\PYZus{}loss}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training and validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+\subsection{    Testing Models}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k+kn}{import} \PY{n}{load\PYZus{}model}  
+\PY{n}{categories\PYZus{}valtest}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{model} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{keras}\PY{o}{.}\PY{n}{models}\PY{o}{.}\PY{n}{load\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/learning/deneme.hdf5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{images} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{c+c1}{\PYZsh{} Test edeceğin datanı preprocess et trainingde verdiğin input haline getir.}
+\PY{n}{main\PYZus{}folder0} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/testing/Set1/}\PY{l+s+s1}{\PYZsq{}}
+\PY{c+c1}{\PYZsh{}main\PYZus{}folder1 =\PYZsq{}/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/testing/Set2/\PYZsq{}}
+\PY{c+c1}{\PYZsh{}main\PYZus{}folder2 =\PYZsq{}/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/testing/Set3/\PYZsq{}}
+\PY{c+c1}{\PYZsh{}main\PYZus{}folder3 =\PYZsq{}/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/testing/Set4/\PYZsq{}}
+\PY{c+c1}{\PYZsh{}main\PYZus{}folder4 =\PYZsq{}/home/rabikkk/Desktop/final\PYZus{}project/last\PYZus{}dataset/testing/Set5/\PYZsq{}}
+\PY{k}{for} \PY{n}{f\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{main\PYZus{}folder0}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{}image = Image.open(main\PYZus{}folder + f\PYZus{}name)}
+    \PY{n}{image} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{main\PYZus{}folder0} \PY{o}{+} \PY{n}{f\PYZus{}name}\PY{p}{)}
+    \PY{n}{image}\PY{o}{=}\PY{n}{ImageOps}\PY{o}{.}\PY{n}{grayscale}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{}image\PYZus{}array = asarray(image)}
+    \PY{n}{image\PYZus{}array}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+    \PY{n}{images}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{image\PYZus{}array}\PY{p}{)}
+    \PY{n}{category}\PY{o}{=}\PY{n}{f\PYZus{}name}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{k}{if} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+      \PY{n}{categories\PYZus{}valtest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+      \PY{n}{categories\PYZus{}valtest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{k}{elif} \PY{n}{category}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+      \PY{n}{categories\PYZus{}valtest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+      \PY{n}{categories\PYZus{}valtest}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+
+\PY{n}{df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{filename}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{images}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{categories\PYZus{}valtest}
+\PY{p}{\PYZcb{}}\PY{p}{)}
+\PY{n}{categories\PYZus{}valtest}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{categories\PYZus{}valtest}\PY{p}{)}
+\PY{n}{categories\PYZus{}valtest}\PY{o}{=}\PY{n}{categories\PYZus{}valtest}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{images}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{images}\PY{p}{)}
+\PY{n}{images} \PY{o}{=} \PY{n}{images}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\PY{n}{images} \PY{o}{=} \PY{n}{images}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{float32}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{255.0}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{images}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\PY{n}{yhat} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{n}{images}\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}print(\PYZsq{}Predicted: \PYZpc{}.3f\PYZsq{} \PYZpc{} yhat[0])}
+\PY{n}{predictions} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}classes}\PY{p}{(}\PY{n}{images}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} summarize the first 5 cases}
+\PY{n}{count}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{;}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{images}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{predictions}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{n}{categories\PYZus{}valtest}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+        \PY{n}{count}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+    \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZpc{}s\PYZpc{}d=\PYZgt{} \PYZpc{}d (expected \PYZpc{}d)\PYZsq{} \PYZpc{} (f\PYZus{}name,i,predictions[i], categories\PYZus{}valtest[i])) }
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Result:}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{p}{(}\PY{n}{count}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}valtest}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}   
+   
+\end{Verbatim}
+\end{tcolorbox}
+

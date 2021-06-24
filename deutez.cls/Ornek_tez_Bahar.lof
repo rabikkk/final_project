@@ -1,23 +1,26 @@
 \babel@toc {english}{}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture of LeNet-5, a Convolutional Neural Network, here for digits recognition. Each plane is a feature map, i.e. a set of units whose weights are constrained to be identical.}}{2}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Schematic diagram of a basic convolutional neural network (CNN) architecture\cite {phung}}}{2}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Architecture of LeNet-5, a Convolutional Neural Network, here for digits recognition. Each plane is a feature map, i.e. a set of units whose weights are constrained to be identical.\cite {lenet}}}{3}{figure.2.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Schematic for HTPA32x32d}}{4}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Schematic Design of Communication PCB}}{5}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces PCB Design of Communication PCB}}{5}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Mini Sensor Board}}{5}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Hand Gesture Dataset}}{6}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Close-Index-Last Page-Open Gestures}}{6}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Schematic for HTPA32x32d}}{6}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Schematic Design of Communication PCB}}{7}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces PCB Design of Communication PCB}}{7}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Mini Sensor Board}}{7}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Hand Gesture Dataset}}{8}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Close-Index-Last Page-Open Gestures}}{8}{figure.3.6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Software Flowchart}}{7}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{8}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Thermal Image}}{9}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{10}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{11}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Thermal Images with Background}}{12}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Software Flowchart}}{12}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Thermal Images 8Bit-12Bit-16Bit ADC Resolution)}}{13}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces System Framework for Static Gestures}}{9}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Thermopile Infrared Array Device and EEPROM Addresses}}{9}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Thermal Image}}{10}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces EEPROM overview 32x32d\cite {datasheet}}}{11}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Thermal Images with EEPROM Calibration Data}}{12}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Thermal Images with Background}}{13}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Gestures of Open,Close,Touch,Return to the Home Page }}{13}{figure.4.7}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces A~ Structural Diagram of the Proposed LENET5 for Static Gesture}}{14}{figure.4.8}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Loss and Accuracy Curves (Training and Validation Set)}}{15}{figure.4.9}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Thermal Images 8Bit-12Bit-16Bit ADC Resolution)}}{16}{figure.4.10}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

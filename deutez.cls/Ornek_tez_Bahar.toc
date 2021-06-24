@@ -1,38 +1,86 @@
 \babel@toc {english}{}
-\contentsline {chapter}{ABSTRACT}{I}%
-\contentsline {chapter}{ÖZET}{II}%
-\contentsline {chapter}{Contents}{III}%
-\contentsline {chapter}{List of Tables}{V}%
-\contentsline {chapter}{List of Figures}{VI}%
-\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}%
-\contentsline {chapter}{\numberline {2}TECHNICAL BACKGROUND}{2}%
-\contentsline {section}{\numberline {2.1}Introduction to Artificial Neural Networks}{2}%
-\contentsline {section}{\numberline {2.2}Model Architecture for LE-NET5}{2}%
-\contentsline {section}{\numberline {2.3}Python Libraries for Project}{3}%
-\contentsline {subsection}{\numberline {2.3.1}OpenCV}{3}%
-\contentsline {subsection}{\numberline {2.3.2}Python-Peripherial}{3}%
-\contentsline {subsection}{\numberline {2.3.3}Numpy}{3}%
-\contentsline {chapter}{\numberline {3}MATERIALS AND METHODS}{4}%
-\contentsline {section}{\numberline {3.1}Htpa32x32d Thermopile Infrared Array}{4}%
-\contentsline {section}{\numberline {3.2}Sensor and MCU Communication PCB Design}{4}%
-\contentsline {section}{\numberline {3.3}Dataset}{5}%
-\contentsline {subsection}{\numberline {3.3.1}Multi-Modal Hand Gesture Dataset for Hand Gesture Recognition}{5}%
-\contentsline {section}{\numberline {3.4}Data Augmentation}{6}%
-\contentsline {chapter}{\numberline {4}PROGRESS AND RESULT}{7}%
-\contentsline {section}{\numberline {4.1}Capture Thermopiles Image}{8}%
-\contentsline {subsection}{\numberline {4.1.1}Heimann Thermopile Array Sensor communication}{8}%
-\contentsline {subsection}{\numberline {4.1.2}Calibrating images from Heimann Thermopile Array Sensor}{10}%
-\contentsline {paragraph}{~}{11}%
-\contentsline {section}{\numberline {4.2}Hand Thermal Image Isolation}{12}%
-\contentsline {section}{\numberline {4.3}Hand Gesture Recognition}{12}%
-\contentsline {subsection}{\numberline {4.3.1}Static Gesture Recognition}{12}%
-\contentsline {subsubsection}{Model Architecture for LE-NET5}{13}%
-\contentsline {subsubsection}{Test Sets and Results}{13}%
-\contentsline {subsection}{\numberline {4.3.2}Dynamic Gesture Recognition}{13}%
-\contentsline {section}{\numberline {4.4}Matching Gesture to Commands of Smart Mirror}{14}%
-\contentsline {chapter}{\numberline {5}COST ANALYSIS}{15}%
-\contentsline {chapter}{\numberline {6}CONCLUSION}{16}%
-\contentsline {chapter}{\numberline {7}APPENDIX}{17}%
-\contentsline {subsection}{\numberline {7.0.1}Capture Image from Htpa32x32d Thermopile Array Sensor}{17}%
-\contentsline {subsection}{\numberline {7.0.2}Creating Dataset }{23}%
-\contentsline {subsection}{\numberline {7.0.3}Static Gesture Learning Algorithm}{24}%
+\contentsline {paragraph}{~}{I}{section*.1}%
+\contentsline {chapter}{ABSTRACT}{I}{section*.1}%
+\contentsline {paragraph}{~}{II}{section*.2}%
+\contentsline {chapter}{ÖZET}{II}{section*.2}%
+\contentsline {chapter}{Contents}{III}{chapter*.3}%
+\contentsline {chapter}{List of Tables}{V}{chapter*.4}%
+\contentsline {chapter}{List of Figures}{VI}{chapter*.5}%
+\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}TECHNICAL BACKGROUND}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introduction to Convolutional Neural Networks}{2}{section.2.1}%
+\contentsline {paragraph}{~}{2}{section*.6}%
+\contentsline {paragraph}{~}{2}{section*.7}%
+\contentsline {section}{\numberline {2.2}Model Architecture for LE-NET5}{3}{section.2.2}%
+\contentsline {paragraph}{~}{3}{section*.8}%
+\contentsline {paragraph}{~}{3}{section*.9}%
+\contentsline {paragraph}{~}{3}{section*.10}%
+\contentsline {paragraph}{~}{4}{section*.11}%
+\contentsline {paragraph}{~}{4}{section*.12}%
+\contentsline {paragraph}{~}{4}{section*.13}%
+\contentsline {paragraph}{~}{4}{section*.14}%
+\contentsline {paragraph}{~}{5}{section*.15}%
+\contentsline {section}{\numberline {2.3}Python Libraries for Project}{5}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Python-Peripherial}{5}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Tensorflow-Keras}{5}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}MATERIALS AND METHODS}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Htpa32x32d Thermopile Infrared Array}{6}{section.3.1}%
+\contentsline {paragraph}{~}{6}{section*.16}%
+\contentsline {section}{\numberline {3.2}Sensor and MCU Communication PCB Design}{6}{section.3.2}%
+\contentsline {paragraph}{~}{6}{section*.17}%
+\contentsline {paragraph}{~}{7}{section*.18}%
+\contentsline {section}{\numberline {3.3}Dataset}{7}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Multi-Modal Hand Gesture Dataset for Hand Gesture Recognition}{7}{subsection.3.3.1}%
+\contentsline {paragraph}{~}{7}{section*.19}%
+\contentsline {section}{\numberline {3.4}Data Augmentation}{8}{section.3.4}%
+\contentsline {paragraph}{~}{8}{section*.20}%
+\contentsline {chapter}{\numberline {4}PROGRESS AND RESULT}{9}{chapter.4}%
+\contentsline {paragraph}{~}{9}{section*.21}%
+\contentsline {section}{\numberline {4.1}Capture Thermopiles Image}{9}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Heimann Thermopile Array Sensor communication}{9}{subsection.4.1.1}%
+\contentsline {paragraph}{~}{9}{section*.22}%
+\contentsline {paragraph}{~}{9}{section*.23}%
+\contentsline {paragraph}{~}{9}{section*.24}%
+\contentsline {paragraph}{~}{10}{section*.25}%
+\contentsline {paragraph}{~}{11}{section*.26}%
+\contentsline {subsection}{\numberline {4.1.2}Calibrating images from Heimann Thermopile Array Sensor}{11}{subsection.4.1.2}%
+\contentsline {paragraph}{~}{11}{section*.27}%
+\contentsline {paragraph}{~}{11}{section*.28}%
+\contentsline {paragraph}{~}{13}{section*.29}%
+\contentsline {section}{\numberline {4.2}Hand Thermal Image Isolation}{13}{section.4.2}%
+\contentsline {paragraph}{~}{13}{section*.30}%
+\contentsline {section}{\numberline {4.3}Hand Gesture Recognition}{13}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Static Gesture Recognition}{13}{subsection.4.3.1}%
+\contentsline {paragraph}{~}{13}{section*.31}%
+\contentsline {paragraph}{~}{13}{section*.32}%
+\contentsline {paragraph}{~}{13}{section*.33}%
+\contentsline {paragraph}{~}{14}{section*.34}%
+\contentsline {subsubsection}{Model Architecture for LE-NET5}{14}{section*.35}%
+\contentsline {paragraph}{~}{14}{section*.36}%
+\contentsline {paragraph}{~}{14}{section*.37}%
+\contentsline {paragraph}{~}{14}{section*.38}%
+\contentsline {paragraph}{~}{15}{section*.39}%
+\contentsline {paragraph}{~}{15}{section*.40}%
+\contentsline {subsubsection}{Test Sets and Results}{15}{section*.41}%
+\contentsline {subsection}{\numberline {4.3.2}Dynamic Gesture Recognition}{15}{subsection.4.3.2}%
+\contentsline {paragraph}{~}{16}{section*.42}%
+\contentsline {paragraph}{~}{16}{section*.43}%
+\contentsline {paragraph}{~}{17}{section*.44}%
+\contentsline {paragraph}{~}{17}{section*.45}%
+\contentsline {section}{\numberline {4.4}Matching Gesture to Commands of Smart Mirror}{17}{section.4.4}%
+\contentsline {paragraph}{~}{17}{section*.46}%
+\contentsline {chapter}{\numberline {5}COST ANALYSIS}{18}{chapter.5}%
+\contentsline {chapter}{\numberline {6}CONCLUSION}{19}{chapter.6}%
+\contentsline {chapter}{\numberline {7}APPENDIX}{20}{chapter.7}%
+\contentsline {section}{\numberline {7.1}\textbf {Sensor Configuration}}{20}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1} Capture Image}{26}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}\textbf {Creating Dataset}}{27}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1} Resize Dataset}{27}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2} Dataset Augmentation}{28}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}\textbf {Static Gesture Learning Model}}{28}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1} Adding Train\_set and Test\_set}{29}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2} Model}{31}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3} Learning}{32}{subsection.7.3.3}%
+\contentsline {subsection}{\numberline {7.3.4} Model Learning Plot}{32}{subsection.7.3.4}%
+\contentsline {subsection}{\numberline {7.3.5} Model Learning Plot }{33}{subsection.7.3.5}%
+\contentsline {subsection}{\numberline {7.3.6} Testing Models}{33}{subsection.7.3.6}%

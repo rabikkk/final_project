@@ -1,0 +1,42 @@
+\BOOKMARK [0][-]{section*.1}{ABSTRACT}{}% 1
+\BOOKMARK [0][-]{section*.2}{\326ZET}{}% 2
+\BOOKMARK [0][-]{chapter*.3}{Contents}{}% 3
+\BOOKMARK [0][-]{chapter*.4}{List of Tables}{}% 4
+\BOOKMARK [0][-]{chapter*.5}{List of Figures}{}% 5
+\BOOKMARK [0][-]{chapter.1}{INTRODUCTION}{}% 6
+\BOOKMARK [0][-]{chapter.2}{TECHNICAL BACKGROUND}{}% 7
+\BOOKMARK [1][-]{section.2.1}{Introduction to Convolutional Neural Networks}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.2}{Model Architecture for LE-NET5}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.3}{Python Libraries for Project}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.3.1}{Python-Peripherial}{section.2.3}% 11
+\BOOKMARK [2][-]{subsection.2.3.2}{Tensorflow-Keras}{section.2.3}% 12
+\BOOKMARK [0][-]{chapter.3}{MATERIALS AND METHODS}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Htpa32x32d Thermopile Infrared Array}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{Sensor and MCU Communication PCB Design}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.3}{Dataset}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.3.1}{Multi-Modal Hand Gesture Dataset for Hand Gesture Recognition}{section.3.3}% 17
+\BOOKMARK [1][-]{section.3.4}{Data Augmentation}{chapter.3}% 18
+\BOOKMARK [0][-]{chapter.4}{PROGRESS AND RESULT}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Capture Thermopiles Image}{chapter.4}% 20
+\BOOKMARK [2][-]{subsection.4.1.1}{Heimann Thermopile Array Sensor communication}{section.4.1}% 21
+\BOOKMARK [2][-]{subsection.4.1.2}{Calibrating images from Heimann Thermopile Array Sensor}{section.4.1}% 22
+\BOOKMARK [1][-]{section.4.2}{Hand Thermal Image Isolation}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.3}{Hand Gesture Recognition}{chapter.4}% 24
+\BOOKMARK [2][-]{subsection.4.3.1}{Static Gesture Recognition}{section.4.3}% 25
+\BOOKMARK [2][-]{subsection.4.3.2}{Dynamic Gesture Recognition}{section.4.3}% 26
+\BOOKMARK [1][-]{section.4.4}{Matching Gesture to Commands of Smart Mirror}{chapter.4}% 27
+\BOOKMARK [0][-]{chapter.5}{COST ANALYSIS}{}% 28
+\BOOKMARK [0][-]{chapter.6}{CONCLUSION}{}% 29
+\BOOKMARK [0][-]{chapter.7}{APPENDIX}{}% 30
+\BOOKMARK [1][-]{section.7.1}{Sensor Configuration}{chapter.7}% 31
+\BOOKMARK [2][-]{subsection.7.1.1}{ Capture Image}{section.7.1}% 32
+\BOOKMARK [1][-]{section.7.2}{Creating Dataset}{chapter.7}% 33
+\BOOKMARK [2][-]{subsection.7.2.1}{ Resize Dataset}{section.7.2}% 34
+\BOOKMARK [2][-]{subsection.7.2.2}{ Dataset Augmentation}{section.7.2}% 35
+\BOOKMARK [1][-]{section.7.3}{Static Gesture Learning Model}{chapter.7}% 36
+\BOOKMARK [2][-]{subsection.7.3.1}{ Adding Train\137set and Test\137set}{section.7.3}% 37
+\BOOKMARK [2][-]{subsection.7.3.2}{ Model}{section.7.3}% 38
+\BOOKMARK [2][-]{subsection.7.3.3}{ Learning}{section.7.3}% 39
+\BOOKMARK [2][-]{subsection.7.3.4}{ Model Learning Plot}{section.7.3}% 40
+\BOOKMARK [2][-]{subsection.7.3.5}{ Model Learning Plot }{section.7.3}% 41
+\BOOKMARK [2][-]{subsection.7.3.6}{ Testing Models}{section.7.3}% 42

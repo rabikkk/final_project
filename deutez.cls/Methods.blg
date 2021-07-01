@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Methods.aux
+The style file: deueeebst2.bst.bst
+Database file #1: fp_refs.bib
+Warning--entry type for "keras" isn't style-file defined
+--line 257 of file fp_refs.bib
+Warning--to sort, need author, editor, or key in dataset
+Warning--to sort, need author, editor, or key in adaf
+Warning--to sort, need author, editor, or key in cv2
+Warning--empty author and editor in adaf
+Warning--missing publisher in adaf
+Warning--empty year in adaf
+Warning--empty author and editor in dataset
+Warning--missing publisher in dataset
+Warning--empty year in dataset
+Warning--empty author and editor in cv2
+Warning--missing publisher in cv2
+Warning--empty year in cv2
+Warning--missing publisher in perip
+Warning--empty year in perip
+Warning--empty booktitle in htpa
+Warning--empty booktitle in CNN2
+Warning--missing publisher in aug
+Warning--empty booktitle in car
+You've used 24 entries,
+            2870 wiz_defined-function locations,
+            721 strings with 9615 characters,
+and the built_in function-call counts, 10633 in all, are:
+= -- 819
+> -- 333
+< -- 23
++ -- 167
+- -- 90
+* -- 583
+:= -- 1305
+add.period$ -- 68
+call.type$ -- 24
+change.case$ -- 122
+chr.to.int$ -- 0
+cite$ -- 42
+duplicate$ -- 946
+empty$ -- 956
+format.name$ -- 105
+if$ -- 2276
+int.to.chr$ -- 0
+int.to.str$ -- 24
+missing$ -- 185
+newline$ -- 132
+num.names$ -- 42
+pop$ -- 399
+preamble$ -- 1
+purify$ -- 93
+quote$ -- 0
+skip$ -- 430
+stack$ -- 0
+substring$ -- 424
+swap$ -- 571
+text.length$ -- 23
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 84
+warning$ -- 18
+while$ -- 70
+width$ -- 26
+write$ -- 252
+(There were 19 warnings)

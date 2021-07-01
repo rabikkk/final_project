@@ -1,81 +1,8 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname uline\endcsname\relax\let\uline\underline\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 \providecommand{\eprint}[2][]{\url{#2}}
-
-\bibitem{adaf}
-\uline{Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}}.
-\newline\urlprefix\url{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
-
-\bibitem{dataset}
-\uline{{MultiModalHandGesture}\_dataset}.
-\newline\urlprefix\url{$http://www.gti.ssr.upm.es/data/MultiModalHandGesture_dataset$}
-
-\bibitem{cv2}
-\uline{{OpenCV}: {OpenCV}-{Python} {Tutorials}}.
-\newline\urlprefix\url{$https://docs.opencv.org/4.5.2/d6/d00/tutorial_py_root.html$}
-
-\bibitem{perip}
-{vsergeev}.
-\newblock \uline{python-periphery: {A} pure {Python} 2/3 library for peripheral
-  {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in {Linux}.}
-\newline\urlprefix\url{https://github.com/vsergeev/python-periphery}
-
-\bibitem{neoc}
-Fukushima, K. and Miyake, S.
-\newblock \enquote{Neocognitron: {A} new algorithm for pattern recognition
-  tolerant of deformations and shifts in position}.
-\newblock Pattern Recognition, volume~15, no.~6, pages 455--469, 1982.
-\newline\urlprefix\url{https://linkinghub.elsevier.com/retrieve/pii/0031320382900243}
-
-\bibitem{lenet}
-Lecun, Y., Bottou, L., et~al.
-\newblock \enquote{Gradient-based learning applied to document recognition}.
-\newblock Proceedings of the IEEE, volume~86, no.~11, pages 2278--2324, 1998.
-\newline\urlprefix\url{http://ieeexplore.ieee.org/document/726791/}
-
-\bibitem{kriz}
-Krizhevsky, A., Sutskever, I., and Hinton, G.~E.
-\newblock \enquote{{ImageNet} classification with deep convolutional neural
-  networks}.
-\newblock Communications of the ACM, volume~60, no.~6, pages 84--90, 2017.
-\newline\urlprefix\url{https://dl.acm.org/doi/10.1145/3065386}
-
-\bibitem{gesturecnn}
-Li, G., Tang, H., et~al.
-\newblock \enquote{Hand gesture recognition based on convolution neural
-  network}.
-\newblock Cluster Computing, volume~22, no.~S2, pages 2719--2729, 2017.
-\newblock Publisher: Springer Science and Business Media LLC.
-
-\bibitem{aug}
-Himblot, T.
-\newblock \uline{Data augmentation : boost your image dataset with few lines of
-  {Python}}, 2018.
-\newblock Publication Title: Medium.
-\newline\urlprefix\url{https://medium.com/@thimblot/data-augmentation-boost-your-image-dataset-with-few-lines-of-python-155c2dc1baec}
-
-\bibitem{datasheet}
-Lupp, S.
-\newblock \enquote{{HTPA32x32dR2L5}.0/0.{85F7}.{7eHiC} {Thermopile} {Array}
-  {With} {Lens} {Optics} {Rev3}.0}.
-\newblock Technical report, Heimann, 2018.
-
-\bibitem{phung}
-Phung, V.~H. and Rhee, E.~J.
-\newblock \enquote{A {Deep} {Learning} {Approach} for {Classification} of
-  {Cloud} {Image} {Patches} on {Small} {Datasets}}.
-\newblock Journal of Information and Communication Convergence Engineering,
-  volume~16, no.~3, pages 173--178, 2018.
-\newline\urlprefix\url{https://doi.org/10.6109/JICCE.2018.16.3.173}
-
-\bibitem{static}
-V, A. and R, R.
-\newblock \enquote{A {Deep} {Convolutional} {Neural} {Network} {Approach} for
-  {Static} {Hand} {Gesture} {Recognition}}.
-\newblock Procedia Computer Science, volume 171, pages 2353--2361, 2020.
-\newblock Publisher: Elsevier BV.
 
 \end{thebibliography}

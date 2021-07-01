@@ -71,6 +71,8 @@
 %\makeatother
 \RequirePackage{ifthenx}
 \RequirePackage{cite}
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
 \usetikzlibrary{calc,shapes.multipart}
 
 %Arkaplanın kapak sayfalarında ve içindekiler sayfasında kullanılmaması için gerekli olan kodlar.
@@ -187,7 +189,7 @@
 %Sayfaya gerekli olan antenti atar. Bu antent içeriği DEU logosu, DEU MUH FAK logosu ve tam ortasına gelecek şekilde yazılardır.
 \newcommand{\antet}{
   \vspace*{-1em}%
-  \hspace{-0.45\picturewidth}\includegraphics[width=0.5\picturewidth]{Deu.jpg}%Sayfanın sol tarafına DEU logosu basar.
+  \hspace{-0.30\picturewidth}\includegraphics[width=0.5\picturewidth]{Deu.jpg}%Sayfanın sol tarafına DEU logosu basar.
   \parbox[b][][t]{0.8\textwidth}{\centering%
     \textbf{\large T.C. \\ DOKUZ EYLÜL UNIVERSITY \\ ENGINEERING FACULTY \\ ELECTRICAL \& ELECTRONICS ENGINEERING \\ DEPARTMENT}}%Sayfanın ortasına %okulun künyesini yazar.
   \includegraphics[width=0.5\picturewidth]{Muh.jpg}%Sayfanın sağ tarafına DEU Muh Fak logosu yerleştirir.

@@ -1,0 +1,153 @@
+\begin{thebibliography}{10}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname uline\endcsname\relax\let\uline\underline\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{adaf}
+\uline{Adafruit's {Raspberry} {Pi} {Lesson} 4. {GPIO} {Setup}}.
+\newline\urlprefix\url{https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c}
+
+\bibitem{dataset}
+\uline{{MultiModalHandGesture}\_dataset}.
+\newline\urlprefix\url{$http://www.gti.ssr.upm.es/data/MultiModalHandGesture_dataset$}
+
+\bibitem{cv2}
+\uline{{OpenCV}: {OpenCV}-{Python} {Tutorials}}.
+\newline\urlprefix\url{$https://docs.opencv.org/4.5.2/d6/d00/tutorial_py_root.html$}
+
+\bibitem{perip}
+{vsergeev}.
+\newblock \uline{python-periphery: {A} pure {Python} 2/3 library for peripheral
+  {I}/{O} ({GPIO}, {LED}, {PWM}, {SPI}, {I2C}, {MMIO}, {Serial}) in {Linux}.}
+\newline\urlprefix\url{https://github.com/vsergeev/python-periphery}
+
+\bibitem{neoc}
+Fukushima, K. and Miyake, S.
+\newblock \enquote{Neocognitron: {A} new algorithm for pattern recognition
+  tolerant of deformations and shifts in position}.
+\newblock Pattern Recognition, volume~15, no.~6, pages 455--469, 1982.
+\newline\urlprefix\url{https://linkinghub.elsevier.com/retrieve/pii/0031320382900243}
+
+\bibitem{lenet}
+Lecun, Y., Bottou, L., et~al.
+\newblock \enquote{Gradient-based learning applied to document recognition}.
+\newblock Proceedings of the IEEE, volume~86, no.~11, pages 2278--2324, 1998.
+\newline\urlprefix\url{http://ieeexplore.ieee.org/document/726791/}
+
+\bibitem{htpa}
+Schilz, J.
+\newblock \enquote{thermophysica minima thermoelectric infrared sensors (
+  thermopiles ) for remote temperature measurements ; pyrometry}, 2001.
+
+\bibitem{image}
+Gonzalez, R.
+\newblock \uline{Digital image processing}.
+\newblock Prentice Hall, Upper Saddle River, N.J, 2008.
+
+\bibitem{hybrid}
+Ghafouri, S. and Seyedarabi, H.
+\newblock \enquote{Hybrid method for hand gesture recognition based on
+  combination of haar-like and {HOG} features}.
+\newblock In \uline{2013 21st Iranian Conference on Electrical Engineering
+  ({ICEE})}. {IEEE}, 2013.
+
+\bibitem{HOG}
+Prasuhn, L., Oyamada, Y., et~al.
+\newblock \enquote{A {HOG}-based hand gesture recognition system on a mobile
+  device}.
+\newblock In \uline{2014 {IEEE} International Conference on Image Processing
+  ({ICIP})}. {IEEE}, 2014.
+
+\bibitem{tensorflow}
+Abadi, M., Agarwal, A., et~al.
+\newblock \enquote{{TensorFlow}: Large-scale machine learning on heterogeneous
+  systems}, 2015.
+\newblock Software available from tensorflow.org.
+\newline\urlprefix\url{https://www.tensorflow.org/}
+
+\bibitem{KNN}
+Chen, W.-H. and Ma, H.-P.
+\newblock \enquote{A fall detection system based on infrared array sensors with
+  tracking capability for the elderly at home}.
+\newblock In \uline{17th}. {IEEE}, 2015.
+
+\bibitem{keras}
+Chollet, F. et~al.
+\newblock \enquote{Keras}, 2015.
+\newline\urlprefix\url{https://github.com/fchollet/keras}
+
+\bibitem{opencv}
+OpenCV.
+\newblock \enquote{Open source computer vision library}.
+\newblock 2015opencv, 2015.
+
+\bibitem{CNN2}
+Kawashima, T., Kawanishi, Y., et~al.
+\newblock \enquote{Action recognition from extremely low-resolution thermal
+  image sequence}.
+\newblock pages 1--6, 2017.
+
+\bibitem{kriz}
+Krizhevsky, A., Sutskever, I., and Hinton, G.~E.
+\newblock \enquote{{ImageNet} classification with deep convolutional neural
+  networks}.
+\newblock Communications of the ACM, volume~60, no.~6, pages 84--90, 2017.
+\newline\urlprefix\url{https://dl.acm.org/doi/10.1145/3065386}
+
+\bibitem{gesturecnn}
+Li, G., Tang, H., et~al.
+\newblock \enquote{Hand gesture recognition based on convolution neural
+  network}.
+\newblock Cluster Computing, volume~22, no.~S2, pages 2719--2729, 2017.
+\newblock Publisher: Springer Science and Business Media LLC.
+
+\bibitem{aug}
+Himblot, T.
+\newblock \uline{Data augmentation : boost your image dataset with few lines of
+  {Python}}, 2018.
+\newblock Publication Title: Medium.
+\newline\urlprefix\url{https://medium.com/@thimblot/data-augmentation-boost-your-image-dataset/}
+
+\bibitem{datasheet}
+Lupp, S.
+\newblock \enquote{{HTPA32x32dR2L5}.0/0.{85F7}.{7eHiC} {Thermopile} {Array}
+  {With} {Lens} {Optics} {Rev3}.0}.
+\newblock Technical report, Heimann, 2018.
+
+\bibitem{phung}
+Phung, V.~H. and Rhee, E.~J.
+\newblock \enquote{A {Deep} {Learning} {Approach} for {Classification} of
+  {Cloud} {Image} {Patches} on {Small} {Datasets}}.
+\newblock Journal of Information and Communication Convergence Engineering,
+  volume~16, no.~3, pages 173--178, 2018.
+\newline\urlprefix\url{https://doi.org/10.6109/JICCE.2018.16.3.173}
+
+\bibitem{mhi}
+Ba, N.~L., Oh, S., et~al.
+\newblock \enquote{A $256 $ pixel, $ 21.6 $ uw infrared gesture recognition
+  processor for smart devices}.
+\newblock Microelectronics Journal, volume~86, pages 49--56, 2019.
+
+\bibitem{CNN1}
+Pinto, R.~F., Borges, C. D.~B., et~al.
+\newblock \enquote{Static hand gesture recognition based on convolutional
+  neural networks}.
+\newblock Journal of Electrical and Computer Engineering, volume 2019, pages
+  1--12, 2019.
+
+\bibitem{car}
+Tateno, S., Zhu, Y., and Meng, F.
+\newblock \enquote{Hand gesture recognition system for in-car device control
+  based on infrared array sensor}.
+\newblock pages 701--706, 2019.
+
+\bibitem{static}
+V, A. and R, R.
+\newblock \enquote{A {Deep} {Convolutional} {Neural} {Network} {Approach} for
+  {Static} {Hand} {Gesture} {Recognition}}.
+\newblock Procedia Computer Science, volume 171, pages 2353--2361, 2020.
+\newblock Publisher: Elsevier BV.
+
+\end{thebibliography}

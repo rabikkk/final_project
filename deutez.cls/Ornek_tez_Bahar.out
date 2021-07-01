@@ -25,18 +25,22 @@
 \BOOKMARK [2][-]{subsection.4.3.1}{Static Gesture Recognition}{section.4.3}% 25
 \BOOKMARK [2][-]{subsection.4.3.2}{Dynamic Gesture Recognition}{section.4.3}% 26
 \BOOKMARK [1][-]{section.4.4}{Matching Gesture to Commands of Smart Mirror}{chapter.4}% 27
-\BOOKMARK [0][-]{chapter.5}{COST ANALYSIS}{}% 28
-\BOOKMARK [0][-]{chapter.6}{CONCLUSION}{}% 29
-\BOOKMARK [0][-]{chapter.7}{APPENDIX}{}% 30
-\BOOKMARK [1][-]{section.7.1}{Sensor Configuration}{chapter.7}% 31
-\BOOKMARK [2][-]{subsection.7.1.1}{ Capture Image}{section.7.1}% 32
-\BOOKMARK [1][-]{section.7.2}{Creating Dataset}{chapter.7}% 33
-\BOOKMARK [2][-]{subsection.7.2.1}{ Resize Dataset}{section.7.2}% 34
-\BOOKMARK [2][-]{subsection.7.2.2}{ Dataset Augmentation}{section.7.2}% 35
-\BOOKMARK [1][-]{section.7.3}{Static Gesture Learning Model}{chapter.7}% 36
-\BOOKMARK [2][-]{subsection.7.3.1}{ Adding Train\137set and Test\137set}{section.7.3}% 37
-\BOOKMARK [2][-]{subsection.7.3.2}{ Model}{section.7.3}% 38
-\BOOKMARK [2][-]{subsection.7.3.3}{ Learning}{section.7.3}% 39
-\BOOKMARK [2][-]{subsection.7.3.4}{ Model Learning Plot}{section.7.3}% 40
-\BOOKMARK [2][-]{subsection.7.3.5}{ Model Learning Plot }{section.7.3}% 41
-\BOOKMARK [2][-]{subsection.7.3.6}{ Testing Models}{section.7.3}% 42
+\BOOKMARK [0][-]{chapter.5}{Work Plan and Work Packages}{}% 28
+\BOOKMARK [0][-]{chapter.6}{COST ANALYSIS}{}% 29
+\BOOKMARK [1][-]{section.6.1}{Economical Costs}{chapter.6}% 30
+\BOOKMARK [1][-]{section.6.2}{Environmental,Political and Social Costs}{chapter.6}% 31
+\BOOKMARK [0][-]{chapter.7}{CONCLUSION}{}% 32
+\BOOKMARK [0][-]{chapter.8}{APPENDIX}{}% 33
+\BOOKMARK [1][-]{section.8.1}{Sensor Configuration}{chapter.8}% 34
+\BOOKMARK [2][-]{subsection.8.1.1}{HTPA32x32d Library perip }{section.8.1}% 35
+\BOOKMARK [2][-]{subsection.8.1.2}{Capture Image}{section.8.1}% 36
+\BOOKMARK [1][-]{section.8.2}{Creating Dataset}{chapter.8}% 37
+\BOOKMARK [2][-]{subsection.8.2.1}{ Resize Dataset}{section.8.2}% 38
+\BOOKMARK [2][-]{subsection.8.2.2}{ Dataset Augmentation}{section.8.2}% 39
+\BOOKMARK [1][-]{section.8.3}{Static Gesture Learning Model}{chapter.8}% 40
+\BOOKMARK [2][-]{subsection.8.3.1}{ Adding Train\137set and Test\137set}{section.8.3}% 41
+\BOOKMARK [2][-]{subsection.8.3.2}{Model keras}{section.8.3}% 42
+\BOOKMARK [2][-]{subsection.8.3.3}{Learning}{section.8.3}% 43
+\BOOKMARK [2][-]{subsection.8.3.4}{ Model Learning Plot}{section.8.3}% 44
+\BOOKMARK [2][-]{subsection.8.3.5}{ Model Learning Plot }{section.8.3}% 45
+\BOOKMARK [2][-]{subsection.8.3.6}{ Testing Models}{section.8.3}% 46

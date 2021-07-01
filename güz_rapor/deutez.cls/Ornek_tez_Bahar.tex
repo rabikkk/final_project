@@ -1,0 +1,134 @@
+\documentclass[thesis]{deutez}
+
+\watermarklogo{Deu.jpg}  % Dokuz Eylül Üniversitesi Logosu; Sayfaya arkasına varsayılan logo olarak basılır.
+\projectname{DOKUZ EYLÜL ÜNİVERSİTESİ ELEKTRİK ELEKTRONİK MÜHENDİSLİĞİ BÖLÜMÜ İÇİN BİR TEZ DÖKÜMANI DÖKÜMAN SINIFI GELİŞTİRİLMESİ}%
+\ogrencininadi{Semih BAŞ}%
+\advisor{Asst.Prof.Dr. Serkan GÜNEL}%
+\jurya{Assoc. Prof. Dr. Yeşim ZORAL}
+\juryb{Asst.Prof.Dr. Hatice DOĞAN}
+\chair{Prof. Dr. Gülay TOHUMOĞLU}
+\time{January,2013}%
+
+\begin{document}
+
+\begin{acknowledgements}
+
+\end{acknowledgements}
+
+\begin{abstract}
+
+	Bu döküman Dokuz Eylül Üniversitesi Mühendislik Fakültesi Elektrik Elektronik Mühendisliği Bölümü için tez dökümanı oluşturulması için yazılan \textit{deutez.cls} döküman sınıfını açıklamak amacıyla yazılmıştır. \textit{deutez.cls} ile birlikte tez dökümanı için gerekli olan düzenlemeker, kapak sayfası ve içindekiler sayfası kolaylıkla oluşturulmaktadır.
+
+	Tez dökümanı yazılırken dikkat edilecek husus logolara ait olan resim dosyaları ile \TeX kaynak dosyasının aynı dizin içerinde olmasıdır. Sözü edilen resimlerin aynı dizin altında bulunmaması derleme esnasında bir çok hataya sebep olabilir.
+
+	\textit{deutez.cls} döküman sınıfı A4 boyutunda kağıtlara 11 punto bü\-yük\-lü\-ğün\-de, ingilizce yazılacak şekilde ön tanımlıdır. Bu döküman sınıfı kullanılırken "\verb|\begin{document}| \verb|\end{document}|"  ortam belirteçlerinden sonra eğer kullanılacaksa "\verb|\begin{acknowledgements}| \verb|\end{acknowledgements}|", "\verb|\begin{abstract} \end{abstract}|" ve "\verb|\begin{ozet}| \verb|\end{ozet}|" ortam belirteçleri kullanıldıktan sonra \verb|\tableofcontents|, \verb|\listoffigures| ve \verb|\listoftable| komutları kullanılmalıdır. Dökümanı yazmya başlamadan önce \verb|\start| komutu kullanılmalıdır.
+
+\textit{deutez.cls} döküman sınıfı kullanıldığı zaman arka planların yerlerine tam oturması için birden fazla derleme işlemine ihtiyaç duyulabilir.
+
+"acknowledgements", "abstract", "özet" ortamlarının kesinlikle kullanılması gibi bir gereklilik yoktur, kullanıcının isteğine bağlıdır.
+	
+\end{abstract}
+
+\begin{ozet}
+  
+	Bu döküman Dokuz Eylül Üniversitesi Mühendislik Fakültesi Elektrik Elektronik Mühendisliği Bölümü için tez dökümanı oluşturulması için yazılan \textit{deutez.cls} döküman sınıfını açıklamak amacıyla yazılmıştır. \textit{deutez.cls} ile birlikte tez dökümanı için gerekli olan düzenlemeker, kapak sayfası ve içindekiler sayfası kolaylıkla oluşturulmaktadır.
+
+	Tez dökümanı yazılırken dikkat edilecek husus logolara ait olan resim dosyaları ile \TeX kaynak dosyasının aynı dizin içerinde olmasıdır. Sözü edilen resimlerin aynı dizin altında bulunmaması derleme esnasında bir çok hataya sebep olabilir.
+
+	\textit{deutez.cls} döküman sınıfı A4 boyutunda kağıtlara 11 punto bü\-yük\-lü\-ğün\-de, ingilizce yazılacak şekilde ön tanımlıdır. Bu döküman sınıfı kullanılırken "\verb|\begin{document}| \verb|\end{document}|"  ortam belirteçlerinden sonra eğer kullanılacaksa "\verb|\begin{acknowledgements}| \verb|\end{acknowledgements}|", "\verb|\begin{abstract} \end{abstract}|" ve "\verb|\begin{ozet}| \verb|\end{ozet}|" ortam belirteçleri kullanıldıktan sonra \verb|\tableofcontents|, \verb|\listoffigures| ve \verb|\listoftable| komutları kullanılmalıdır. Dökümanı yazmya başlamadan önce \verb|\start| komutu kullanılmalıdır.
+
+\textit{deutez.cls} döküman sınıfı kullanıldığı zaman arka planların yerlerine tam oturması için birden fazla derleme işlemine ihtiyaç duyulabilir.
+
+"acknowledgements", "abstract", "özet" ortamlarının kesinlikle kullanılması gibi bir gereklilik yoktur, kullanıcının isteğine bağlıdır.
+
+\end{ozet}
+ 
+\tableofcontents
+\listoftables
+\listoffigures
+
+\start
+
+\chapter{INTRODUCTION}
+
+	Döküman sınıfı........
+	
+\chapter{DÖKÜMAN SINIFININ KURULMASI ve KULLANILMASI}
+
+	\textit{deutez.cls} dosyası mutlaka \TeX kaynak kodları ile, logo dosyaları aynı dizin içinde olmalıdır. Eğer sınıf dosyası ile kaynak dosyasını olduğu dosya ve logo aynı dizin içinde olmazlar ise sınıf düzgün olarak çalışmaz. 
+
+	Döküman sınıfını düzgün olarak kullanabilmek için \textbf{babel, inputenc, graphicx, geometry, everypage, afterpage, tikz, ifthenx, cite} paketleri kurulu olmalıdır.
+
+\chapter{KOMUTLAR ve İŞLEVLERİ}
+
+	\textit{deutez.cls} dosyasını düzgün bir şekilde kullanmak için bazı komutlarla tezin düzgün hazırlanması için gerekli olan bilgilerin girilmesi gerekmektedir.Gerekli olan komutlar bu başlık altında incelenecektir.
+	
+	EED4093 Research Project Dersi için için latex preamble'ı
+	\begin{verbatim}
+	 \documentclass[research]{deutez}
+	\end{verbatim}
+	şeklinde başlamalıdır.
+	
+	EED4094 Final Project Dersi için için latex preamble'ı
+	\begin{verbatim}
+	 \documentclass[thesis]{deutez}
+	\end{verbatim}
+	şeklinde başlamalıdır.
+
+	\begin{description}
+  		\item \begin{verbatim}\watermarklogo{Deu.jpg}\end{verbatim}
+			Okulun logosunu sayfaların arkasına filigran olarak yerleştirir. 
+
+ 		\item \begin{verbatim}\projectname{~}\end{verbatim}
+			Tez başlığının kapağa yerleşmesini sağlar.
+  
+  		\item \begin{verbatim}\ogrencininadi{~}\end{verbatim} 
+			Projeyi hazırlayan öğrencinin adını tez kapağına gerektiği şekilde koyar. 
+
+  		\item \begin{verbatim}\advisor{~}\end{verbatim}
+  			Proje danışmanın ismi yazılmalıdır. 
+ 
+  		\item \begin{verbatim}\time{~}\end{verbatim}
+  			Raporun yazıldığı tarih, bitirme tezi yazıl klavuzunda belirtildiği şekilde \textbf{ay,yıl} şeklinde yazılmalıdır.
+ 
+  		\item \begin{verbatim}\jurya{~},\juryb{~}\end{verbatim} 
+	 		Tez sınavını yapacak jüri üyelerinin isimleri yazılır. Güz dönemi için "evaluation form" hazırlanmayacağı için yazılmasına gerek yoktur. Ancak bahar döneminde mutlaka yazılmalıdır.
+		\ item \begin{verbatim}\chair{~}\end{verbatim} 
+		 Bölüm başkanın ismi yazılmalıdır. Güz dönemi için "evaluation form" hazırlanmayacağı için yazılmasına gerek yoktur. Ancak bahar döneminde mutlaka yazılmalıdır.
+
+\end{description}
+
+\chapter{\textit{deustaj.cls} DOSYASININ GERÇEKLENMESİ}
+
+	\textit{deutez.cls} döküman sınıfı, \textit{report.cls} döküman sınıfının ihtiyaçlara uygun olarak geliştirilmiş versiyonudur. Bu geliştirme sırasında \textit{report.cls} döküman sınıfına  kapak sayfası hariç her sayfaya gelecek şekilde arka plan logosu; "acknowledgements", "abstract", "özet" ortamları ve "evaluation form" eklenmiştir. 
+  
+	Bu çalışma sırasında kullanıcının kapak sayfası ve "evaluation form" için herhangi ek komutlara ihtiyaç duymamasına dikkat edilmiş ve bu konu \textit{deutez.cls} döküman sınıfı içinde yapılan yeni tanımlamarla birlikte ortadan kaldırılmıştır. 
+
+	Bu sınıfın geliştrilmesi sırasında;
+	\begin{itemize}
+ 		\item \textit{babel}  
+ 		\item \textit{inputenc}
+ 		\item \textit{graphicx}
+ 		\item \textit{geometry}
+ 		\item \textit{everypage}
+ 		\item \textit{afterpage}
+ 		\item \textit{tikz}
+ 		\item \textit{ifthenx}
+ 		\item \textit{cite}
+	\end{itemize}
+paketleri ve tikz paketine ait
+	\begin{itemize}
+ 		\item \textit{calc}  
+ 		\item \textit{shapes.multipart}
+	\end{itemize}
+kütüphaneleri kullanılmıştır.
+
+Tez dökümanı arka planları \textit{tikz} paketi kullanılarak hazırlanmıştır.  Ayrıca arka plan sayfanın tam orta noktasına gelecek şekilde "node" komutu ile yerleştirilmiştir. 
+
+Kapak sayfaları "vfill","hfill" komutları yardımıyla birlikte yerleştirilmiş üzerindeki bilgiler ise kullanıcının girdiği komutlar vasıtasıyla alınmıştır. Kapak sayfalarının 
+tasarımı daha rahat olması için antet, titlepageA, titlepageB form gibi komutlar tanımlanmıştır. 
+
+Antet komutu ile sayfanın başındaki okulun künyesi ve logoları bir araya getirilerek hep aynı boyutta ve aynı yerde kullanılması amaçlanmıştır. titlepageA ve titlepageB komutları ile birlikte tez dökümanın güz ve bahar dönemine göre yeniden düzenlenmesi amaçlanmıştır. Form komutu ise evaluation formunu dizmek için kullanılmıştır.
+
+
+\end{document}

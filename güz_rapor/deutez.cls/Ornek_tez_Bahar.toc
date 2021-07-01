@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\contentsline {chapter}{ACKNOWLEDGEMENTS}{I}%
+\contentsline {chapter}{ABSTRACT}{II}%
+\contentsline {chapter}{ÖZET}{III}%
+\contentsline {chapter}{Contents}{IV}%
+\contentsline {chapter}{List of Tables}{V}%
+\contentsline {chapter}{List of Figures}{VI}%
+\contentsline {chapter}{\numberline {1}INTRODUCTION}{1}%
+\contentsline {chapter}{\numberline {2}DÖKÜMAN SINIFININ KURULMASI ve KULLANILMASI}{2}%
+\contentsline {chapter}{\numberline {3}KOMUTLAR ve İŞLEVLERİ}{3}%
+\contentsline {chapter}{\numberline {4}\textit {deustaj.cls} DOSYASININ GERÇEKLENMESİ}{5}%

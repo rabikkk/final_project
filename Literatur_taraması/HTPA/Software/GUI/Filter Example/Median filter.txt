@@ -1,0 +1,47 @@
+Pseudo-code:
+
+signed int sltemp[NROFDATA],ReceiveBuffer[NROFDATA],MEDIANNOISE_T,data[9];
+float datahigh,datalow,MEDIANNOISE_V;
+memcpy(sltemp,ReceiveBuffer,sizeof(ReceiveBuffer)); 
+
+//copy whole frame. Not necessary! Also, it can be done by keeping
+//only two columns in RAM. Keep in mind, that the results should not
+//influence the next operation, therefore it can be written back, for
+//values i>((COLUMN+1)+(2*COLUMN))
+//ReceiveBuffer contains incoming raw data. The code assumes the two dimensional frame is stored linear in RAM.
+
+
+for(i=(COLUMN+1);i<(NROFDATA-COLUMN-1);i++){ //only process sensitive areas
+	data[0]=sltemp[i-COLUMN-1]; //select 3x3 adjacent cluster
+	data[1]=sltemp[i-COLUMN];
+	data[2]=sltemp[i-COLUMN+1];
+	data[3]=sltemp[i-1];
+	data[4]=sltemp[i];
+	data[5]=sltemp[i+1];
+	data[6]=sltemp[i+COLUMN-1];
+	data[7]=sltemp[i+COLUMN];
+	data[8]=sltemp[i+COLUMN+1];
+	for(k = 0; k < 9; ++k){ //sort the data
+		for(m = k ; m < 9; ++m){
+			if(data[k] > data[m]){
+				xd = data[k];
+				data[k] = data[m];
+				data[m] = xd;
+				}
+			}
+		}	
+If(GetsDataInTemperatureDomain){
+	if((data[8]-data[0])<MEDIANNOISE_T){ //MEDIANNOISE_T is the NETD*TBD_Factor. This is a threshold, if contrast in scene is huge, don't do it.
+		sltemp[i]=data[4];
+		}
+	}
+else{ //runs in voltage domain
+	datahigh=(float)data[8];
+	datalow=(float)data[0];
+	if(abs((datahigh/datalow))<MEDIANNOISE_V){ //MEDIANNOISE_V could be dependent on data[4]. This is a threshold, if contrast in scene is huge, don't do it.
+		sltemp[i]=data[4];
+		}
+	}
+}
+memcpy(ReceiveBuffer,sltemp,sizeof(ReceiveBuffer));	//overwrite filtered data
+//go on and process ReceiveBuffer further.

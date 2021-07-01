@@ -1,0 +1,194 @@
+% Encoding: UTF-8
+
+@Article{Otsu2,
+  author    = {Xin Yuan and Jos{\'{e}}-Fern{\'{a}}n Mart{\'{\i}}nez and Martina Eckert and Lourdes L{\'{o}}pez-Santidri{\'{a}}n},
+  journal   = {Sensors},
+  title     = {An Improved Otsu Threshold Segmentation Method for Underwater Simultaneous Localization and Mapping-Based Navigation},
+  year      = {2016},
+  month     = {jul},
+  number    = {7},
+  pages     = {1148},
+  volume    = {16},
+  doi       = {10.3390/s16071148},
+  publisher = {{MDPI} {AG}},
+}
+
+@Article{Otsu1,
+  author    = {Nobuyuki Otsu},
+  journal   = {{IEEE} Transactions on Systems, Man, and Cybernetics},
+  title     = {A Threshold Selection Method from Gray-Level Histograms},
+  year      = {1979},
+  month     = {jan},
+  number    = {1},
+  pages     = {62--66},
+  volume    = {9},
+  doi       = {10.1109/tsmc.1979.4310076},
+  publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
+}
+
+@InProceedings{htpa,
+  author = {J. Schilz},
+  title  = {thermophysica minima THERMOELECTRIC INFRARED SENSORS ( THERMOPILES ) FOR REMOTE TEMPERATURE MEASUREMENTS ; PYROMETRY},
+  year   = {2001},
+}
+
+@Article{opencv,
+  author  = {OpenCV},
+  journal = {2015opencv},
+  title   = {Open Source Computer Vision Library},
+  year    = {2015},
+}
+
+@Book{image,
+  author    = {Gonzalez, Rafael},
+  publisher = {Prentice Hall},
+  title     = {Digital image processing},
+  year      = {2008},
+  address   = {Upper Saddle River, N.J},
+  isbn      = {9780131687288},
+}
+
+@Article{mhi,
+  author    = {Ngoc Le Ba and Sechang Oh and Dennis Sylvester and Tony Tae-Hyoung Kim},
+  journal   = {Microelectronics Journal},
+  title     = {A 256 pixel, 21.6 uW infrared gesture recognition processor for smart devices},
+  year      = {2019},
+  month     = {apr},
+  pages     = {49--56},
+  volume    = {86},
+  doi       = {10.1016/j.mejo.2019.02.016},
+  publisher = {Elsevier {BV}},
+}
+
+@InProceedings{car,
+  author = {Tateno, Shigeyuki and Zhu, Yiwei and Meng, Fanxing},
+  title  = {Hand Gesture Recognition System for In-car Device Control Based on Infrared Array Sensor},
+  year   = {2019},
+  month  = {09},
+  pages  = {701-706},
+  doi    = {10.23919/SICE.2019.8859832},
+}
+
+@Article{CNN1,
+  author    = {Raimundo F. Pinto and Carlos D. B. Borges and Ant{\^{o}}nio M. A. Almeida and I{\'{a}}lis C. Paula},
+  journal   = {Journal of Electrical and Computer Engineering},
+  title     = {Static Hand Gesture Recognition Based on Convolutional Neural Networks},
+  year      = {2019},
+  month     = {oct},
+  pages     = {1--12},
+  volume    = {2019},
+  doi       = {10.1155/2019/4167890},
+  publisher = {Hindawi Limited},
+}
+
+@InProceedings{hybrid,
+  author    = {Sudabeh Ghafouri and Hadi Seyedarabi},
+  booktitle = {2013 21st Iranian Conference on Electrical Engineering ({ICEE})},
+  title     = {Hybrid method for hand gesture recognition based on combination of Haar-like and {HOG} features},
+  year      = {2013},
+  month     = {may},
+  publisher = {{IEEE}},
+  doi       = {10.1109/iraniancee.2013.6599529},
+}
+
+@InProceedings{KNN,
+  author    = {Wei-Han Chen and Hsi-Pin Ma},
+  booktitle = {17th},
+  title     = {A fall detection system based on infrared array sensors with tracking capability for the elderly at home},
+  year      = {2015},
+  month     = {oct},
+  publisher = {{IEEE}},
+  doi       = {10.1109/healthcom.2015.7454538},
+}
+
+@InProceedings{HOG,
+  author    = {Lukas Prasuhn and Yuji Oyamada and Yoshihiko Mochizuki and Hiroshi Ishikawa},
+  booktitle = {2014 {IEEE} International Conference on Image Processing ({ICIP})},
+  title     = {A {HOG}-based hand gesture recognition system on a mobile device},
+  year      = {2014},
+  month     = {oct},
+  publisher = {{IEEE}},
+  doi       = {10.1109/icip.2014.7025807},
+}
+
+@TechReport{datasheet,
+  author      = {Schnorr/M. Lupp},
+  institution = {Heimann},
+  title       = {HTPA32x32dR2L5.0/0.85F7.7eHiC Thermopile Array With Lens Optics Rev3.0},
+  year        = {2018.03.28},
+}
+
+@InProceedings{CNN2,
+  author = {Kawashima, Takayuki and Kawanishi, Yasutomo and Ide, Ichiro and Murase, H. and Deguchi, Daisuke and Aizawa, Tomoyoshi and Kawade, Masato},
+  title  = {Action recognition from extremely low-resolution thermal image sequence},
+  year   = {2017},
+  month  = {08},
+  pages  = {1-6},
+  doi    = {10.1109/AVSS.2017.8078497},
+}
+
+@InCollection{MHI,
+  author    = {Maryam Vafadar and Alireza Behrad},
+  booktitle = {Lecture Notes in Computer Science},
+  publisher = {Springer Berlin Heidelberg},
+  title     = {Human Hand Gesture Recognition Using Motion Orientation Histogram for Interaction of Handicapped Persons with Computer},
+  year      = {2008},
+  pages     = {378--385},
+  doi       = {10.1007/978-3-540-69905-7_43},
+}
+
+@Book{MHIbook,
+  author    = {Md. Atiqur Rahman Ahad},
+  publisher = {Springer London},
+  title     = {Motion History Images for Action Recognition and Understanding},
+  year      = {2013},
+  doi       = {10.1007/978-1-4471-4730-5},
+}
+
+@Article{static,
+  author    = {Adithya V. and Rajesh R.},
+  journal   = {Procedia Computer Science},
+  title     = {A Deep Convolutional Neural Network Approach for Static Hand Gesture Recognition},
+  year      = {2020},
+  pages     = {2353--2361},
+  volume    = {171},
+  doi       = {10.1016/j.procs.2020.04.255},
+  publisher = {Elsevier {BV}},
+}
+
+@Article{gesturecnn,
+  author    = {Gongfa Li and Heng Tang and Ying Sun and Jianyi Kong and Guozhang Jiang and Du Jiang and Bo Tao and Shuang Xu and Honghai Liu},
+  journal   = {Cluster Computing},
+  title     = {Hand gesture recognition based on convolution neural network},
+  year      = {2017},
+  month     = {dec},
+  number    = {S2},
+  pages     = {2719--2729},
+  volume    = {22},
+  doi       = {10.1007/s10586-017-1435-x},
+  publisher = {Springer Science and Business Media {LLC}},
+}
+
+@Book{cnnbook,
+  author    = {Orr, Genevieve},
+  publisher = {Springer},
+  title     = {Neural networks : tricks of the trade},
+  year      = {1998},
+  address   = {Berlin New York},
+  isbn      = {3540653112},
+}
+
+@Article{LeCun,
+  author    = {Yann LeCun and Yoshua Bengio and Geoffrey Hinton},
+  journal   = {Nature},
+  title     = {Deep learning},
+  year      = {2015},
+  month     = {may},
+  number    = {7553},
+  pages     = {436--444},
+  volume    = {521},
+  doi       = {10.1038/nature14539},
+  publisher = {Springer Science and Business Media {LLC}},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

@@ -1,0 +1,62 @@
+\documentclass{deutez}
+\DeclareUnicodeCharacter{202F}{\,}
+\usepackage{placeins}%resim kaymaları için kullanıldı FloatBarrier
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{iftex}
+\pagestyle{empty}
+
+\ifTUTeX
+\usepackage{fontspec}
+\else
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % The default since 2018
+\DeclareUnicodeCharacter{200B}{{\hskip 0pt}}
+\fi
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\lstset{language=C}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\graphicspath{ {./images/} }
+\watermarklogo{Deu.jpg}  % Dokuz Eylül Üniversitesi Logosu; Sayfaya arkasına varsayılan logo olarak basılır.
+
+\projectname {EED1010 Algorithms and Programming}%
+\ogrencininadi{Rabia DOĞAN}%
+\time{March,2021}%
+\begin{document}
+	\begin{lstlisting}
+
+	\end{lstlisting}
+\end{document}

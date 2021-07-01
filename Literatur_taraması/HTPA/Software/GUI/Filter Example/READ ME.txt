@@ -1,0 +1,40 @@
+//For usage of the FIR and IIR filters include the files FIR_Filter.cpp, FIR_Filter.h, IIR_Filter.cpp and IIR_Filter.h
+
+//Include the both follwoing defines in your code:
+#define BESSELFIR
+#define BESSELIIR
+
+//RAM needs to be allocated. SENSPIX is the amount of pixels you need to filter and needs to be declared:
+SampleFilter FIRStack[SENSPIX];
+IIRFilter IIRStack[SENSPIX];
+
+//Now initialize both stacks:
+for(i=0;i<SENSPIX;i++){
+#ifdef BESSELFIR
+	SampleFilter_init(&FIRStack[i]);
+#endif
+#ifdef BESSELIIR
+	IIRFilter_init(&IIRStack[i]);
+#endif
+	}
+
+//Now serve the filters, assuming Receivebuffer carries the raw data coming into your system.
+//Frames is the actual frame count, FIRInFrame is the frame count, when the FIR filter was enabled.
+//IIRInFrame represents the number of frame, when the IIR filter was enabled. If filter should be always enabled, simpyl set to 1. 
+//This is similar for FIRInFrame. Now the first frame will be left unfiltered until the buffer is full, then your incoming data is overwritten with filtered data
+#ifdef BESSELFIR
+	for(i=0;i<SENSPIX;i++){
+		SampleFilter_put(&FIRStack[i],(double)ReceiveBuffer[i]);
+		if(Frames>(SAMPLEFILTER_TAP_NUM+FIRInFrame+1))
+			ReceiveBuffer[i]=(unsigned int)SampleFilter_get(&FIRStack[i]);
+		}
+#endif
+#ifdef BESSELIIR
+	for(i=0;i<SENSPIX;i++){
+		if(Frames>(((IIRFILTER_TAP_NUM+2)*2)+IIRInFrame))
+			ReceiveBuffer[i]=(unsigned int)IIRFilter_putget(&IIRStack[i],(double)ReceiveBuffer[i]);
+		else
+			IIRFilter_putget(&IIRStack[i],(double)ReceiveBuffer[i]);
+		}
+#endif
+

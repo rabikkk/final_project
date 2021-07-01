@@ -1,0 +1,709 @@
+\documentclass[thesis]{deutez}
+%%My_library 
+\usepackage{placeins}%resim kaymaları için kullanıldı
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage[breakable]{tcolorbox}
+\usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+\usepackage[demo]{rotating}
+%%%%%%%%%%%%%%%%%%%%%GANTCHART%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{adjustbox}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfgantt}
+\usepackage{pdflscape}%gantchart içim
+\newganttchartelement{orangebar}{
+	orangebar/.style={
+		inner sep=0pt,
+		draw=red!66!black,
+		very thick,
+		top color=white,
+		bottom color=orange!80
+	},
+	orangebar label font=\huge,
+	orangebar left shift=.1,
+	orangebar right shift=-.1
+}
+
+\newganttchartelement{bluebar}{
+	bluebar/.style={
+		inner sep=0pt,
+		draw=purple!44!black,
+		very thick,
+		top color=white,
+		bottom color=blue!80
+	},
+	bluebar label font=\huge,
+	bluebar left shift=.1,
+	bluebar right shift=-.1
+}
+
+\newganttchartelement{greenbar}{
+	greenbar/.style={
+		inner sep=0pt,
+		draw=green!50!black,
+		very thick,
+		top color=white,
+		bottom color=green!80
+	},
+	greenbar label font=\huge,
+	greenbar left shift=.1,
+	greenbar right shift=-.1
+}
+
+\newganttchartelement{redbar}{
+	redbar/.style={
+		inner sep=0pt,
+		draw=red!90!black,
+		very thick,
+		top color=white,
+		bottom color=red!90
+	},
+	redbar label font=\huge,
+	redbar left shift=.1,
+	redbar right shift=-.1
+}
+
+\newganttchartelement{blackbar}{
+	blackbar/.style={
+		inner sep=0pt,
+		draw=black!90!black,
+		very thick,
+		top color=white,
+		bottom color=black!90
+	},
+	blackbar label font=\huge,
+	blackbar left shift=.1,
+	blackbar right shift=-.1
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Slightly bigger margins than the latex defaults
+
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+
+
+%%Images
+\graphicspath{ {./images/} }
+
+%-------------------------------------%%
+
+\watermarklogo{Deu.jpg}  % Dokuz Eylül Üniversitesi Logosu; Sayfaya arkasına varsayılan logo olarak basılır.
+\projectname{Smart Mirror Controller}%
+\ogrencininadi{Rabia DOĞAN}%
+\advisor{Dr. Özgür TAMER}%
+\jurya{Prof. Dr. Gülay TOHUMOĞLU}
+\juryb{Dr. Abdül BALIKCI}
+\chair{Prof. Dr. Mehmet KUNTALP}
+\time{January,2021}%
+\begin{document}
+	\begin{abstract}
+		\paragraph~ In the project, general purpose is to give the Smart Mirror controllable features with
+		hand gestures. In this way, the product will be able to appeal to the upper customer
+		segments and increase its market share. The main goal here is to enable users to use
+		most of the smart mirror applications with hand movements, to eliminate the need to
+		touch the mirror, thus to eliminate the contamination in the touched parts of the mirrors
+		and therefore to possible dissatisfaction with the product and to ensure that the product
+		can be used even in cases where the users cannot touch the mirror with their hands for
+		various reasons, such as the bathroom. Although camera-based systems are generally
+		used for gesture recognition, it will not be welcomed by many users to have a camera in
+		a personal use area such as the bathroom.Therefore, passive infrared sensor arrays will
+		be preferred for gesture recognition in our project. They can be preferred in application
+		areas where cameras are relatively weak because they work with the infrared radiation
+		emitted by living creatures. We aim to detect hand gesture and then the movement of
+		the hand gesture. In this way, gesture distinction can be made with a simpler electronic
+		design with less processing load and lower cost than a standard camera. The project is
+		carried out and supported by Vestel Elektronik A.Ş. with the code TEYDEB 3170688.		
+	\end{abstract}
+	\newpage
+	\begin{ozet}
+		\paragraph~ Projede genel amaç Akıllı Aynaya el jestleri ile kontrol edilebilir özellikler kazandırmaktır.Bu sayede ürün üst müşteri segmentlerine de hitap edebilecek, pazar payını artırabilecektir.Burada temel hedef kullanıcıların akıllı ayna uygulamalarının birçoğunu el hareketleri ile kullanabilmesini sağlayarak, aynaya dokunma ihtiyacını ortadan kaldırmak böylece aynaların dokunulan bölgelerindeki kirlenmeyi ve dolayısıyla da ürün ile ilgili olası memnuniyetsizliği ortadan kaldırmak ve banyo gibi kullanıcıların çeşitli nedenler ile elleri ile aynaya dokunamayacakları durumlarda dahi ürünün kullanılabilmesini sağlamaktır.Jest tanıma için genellikle kamera temelli sistemler kullanılmakla beraber, banyo gibi kişisel kullanıma dönük bir alanda kamera bulunması birçok kullanıcı tarafından hoş karşılanmayacaktır.Bu nedenle projemizde jest tanımlama amacıyla pasif kızılötesi sensör dizileri tercih edilecektir.Bu tip sensörler oldukça düşük çözünürlüklerde görev yapmasına karşın, nesne ya da canlıların yaydığı kızılötesi ışıma ile çalıştıkları için kameraların görece zayıf kaldığı uygulama alanlarında tercih edilebilmektedirler.Pasif kızılötesi sensörler ile öncelikle kullanıcının jestini ve sonrasında da jestin hareketini algılamayı amaçlamaktayız.Bu sayede standart bir kameraya göre daha az işlem yükü ve daha düşük maliyet ve daha basit bir elektronik tasarım ile jest ayrımı yapılabilecektir. Proje Vestel Elektronik A.Ş.taarafından TEYDEB 3170688 kodu ile yürütülmekte ve desteklenmektedir.
+		
+	\end{ozet}
+	\newpage
+	\tableofcontents
+	\newpage
+	\listoftables
+	\newpage
+	\listoffigures
+	\newpage
+	\start
+	\chapter{INTRODUCTION}
+	\paragraph~	The overall goal of the project is to add a motion detection system to the Smart Mirror at the cheapest cost.
+	
+	\paragraph~		One of the most important issues in the project where confidentiality is kept at the forefront is sensor selection. One of the best options for this is the use of a thermopile array sensor. It is a system that measures infrared radiation developed with the thermocouple method dating back 150 years. A thermocouple consists of 4 leads, there are two different materials connected to 2 leads, the other two ends are connected to a voltage meter. If an absorber is attached to the coupling and is exposed to IR radiation from an object, the thermocouple junction becomes hot due to the incident radiation while the absorber collects the incident heat. The thermocouple material also converts the temperature difference voltage indicated by the voltmeter. Therefore, the voltmeter reading is a direct measure of object temperature. This method is simple, does not require any mechanics and can accurately detect static signals\cite{htpa}. For this, the most suitable sensor selection should be determined by resolution, temperature range, communication method, etc. Considering the circumstances, Heimann HTPA32x32d thermopile infrared array was preferred.
+	
+	\paragraph~		Before Smart Mirror integration, it was decided to use an external microcontroller. The reason for this was that the processor in Smart Mirror did not work very well. It was decided to switch to external card selection in order to extend the process and to deliver the project within the specified time. The sensor PCB to be developed should be designed to connect the sensor to the microcontroller and receive data from the sensor in the most efficient way. The sensor and microcontroller to be selected will show us the way to be followed. At this stage, Vestel decided to manufacture its own processor. In order not to disrupt the project, Raspberry pi 4B was chosen for the continuity of the project.
+	\paragraph~ For the development of the software department, the most suitable software language was chosen for the project. Python was preferred both in terms of libraries and in terms of having a lot of collaborative work. The first step is to get data from the sensor. After successfully obtaining this, the human body and all objects in the background emit infrared radiation in the resulting image. Therefore, the sensor detects these objects as well. This problem can be solved by threshold methods in the literature. The simple threshold method returns the same threshold value for each pixel.Pixel values less than the threshold value are changed to 0.\cite{opencv}. Adaptive threshold is the method by which the threshold value is calculated for smaller regions, so different regions will have different thresholds\cite{opencv}. Another method is the Otsu method. It is also a kind of adaptive blend. Instead of choosing a threshold value, Otsu's method determines it \cite{image} automatically. Apart from all these, a solution method was sought. Right after the smart mirror is turned on, the average temperature of the objects in the environment is subtracted from the main image, allowing the hand to be detected. Thus, an external preprocessing process is also avoided.
+	
+	\paragraph~ The 4 static and 4 dynamic movements are the ones we currently set for a smart mirror. There are some methods to help us understand whether movements are dynamic or static. With the Barycenter method, it is possible to adopt a similar case of planetary motion for the \cite{car} gestures. Another method is MHI (memory History Image)\cite{mhi}. Images are taken at certain time intervals and compared. The difference between the images shows us that there is movement. But since we have a framerate problem at this stage, this problem could not be solved.
+	
+	\paragraph~ The next step is to perform classification methods to match the resulting image with the commands mentioned earlier. Some methods are as follows;  
+	
+	\paragraph~ The Hybrid Method (combination of Haar-Like and HOG features) is a feature extraction method. Then using this method, multiclass SVM(Support Vector Machine ) is used for final gesture recognition \cite{hybrid}. HOG (Histogram of Oriented Gradient) features are one of the feature extraction methods. Hand recognition after applying this method is that the matching image is found in the database. This step is performed using nearest neighbor algorithms. \cite{HOG}. k-NN(k-nearest neighbor); It is one of the most popular machine learning algorithms because it is old, simple, and resistant to noisy training data. However, it also has a downside. It is necessary to get the necessary information up-to-date for the big data we store in the long term. There are database clusters. Then, using the fall detection algorithm, the object in front is distinguished from other objects. Finally, k-NN classification is made using the data in the \cite{KNN} database. CNN (convolutional neural networks) is one of the most widely used algorithms for image classification. An image classifier takes a photo or video as input and classifies it into one of the possible categories it was trained to identify.\cite{CNN1}\cite{CNN2} \cite{car}. Using the CNN model for this allows us to reach the most accurate result. Since we have 32x32 type input images, it was decided to use the LENET-5 model. As a result of the method used, very efficient results were obtained.
+	
+	\paragraph~ All that remains is the communication between the selected microcontroller and Smart Mirror. In order to do this, android software must be made on the smart mirror side. This is expected to be written by the android team in the team.
+	
+	\chapter{TECHNICAL BACKGROUND}
+	\section{Introduction to Convolutional Neural Networks}
+	\paragraph~ In deep learning, CNNs are the most common networks used with image classification. CNNs were inspired by the human visual system proposed by Fukushima\cite{neoc} and LeCun et al. \cite{lenet} State-of-the-art approaches to pattern recognition, object detection, and many other image applications. It was a deep CNN solution by Krizhevsky et al.\cite{kriz} CNNs are very different from other pattern recognition algorithms because CNNs combine both feature extraction and classification \cite{lenet}. The simple network model consists of five different layers: an input layer, a convolution layer, a pooling layer, a fully connected layer, and an output layer. These layers are divided into two parts: feature extraction and classification. Feature extraction consists of an input layer, a convolution layer, and a pool layer, while classification consists of a fully connected layer and an output layer. The input layer specifies a fixed size for input images, which are resized as needed. The image is then convoluted with multiple learned kernels using the weights shared by the convolution layer. Then, the repository layer reduces the image size while trying to preserve the information it contains. The outputs of feature extraction are known as feature maps. Classification combines extracted features into fully connected layers. Finally, there is one output neuron for each object category in the output layer. The output of the classification section is the classification result.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.5\textwidth]{cnn_model}
+		\caption{Schematic diagram of a basic convolutional neural network (CNN) architecture\cite{phung}}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~	Deep learning techniques have emerged recently and advances in convolutional neural networks (CNN) surpass the classical approach to hand gesture recognition as it eliminates the need to derive complex handcrafted features from images\cite{gesturecnn}. CNN's automate the feature extraction process by learning high-level abstractions in images and capturing the most distinguishing feature values using the hierarchical architecture. Thus, it solves the disadvantage of obtaining inconsistent property descriptors when working with large numbers of motion classes with very small cross-class variations\cite{static}.
+	
+	\section{Model Architecture for LE-NET5}
+	\paragraph~ LeNet-5 was one of the earliest convolutional neural networks to support the deep learning event. After countless years of analysis and numerous compelling iterations, the final result was named LeNet-5 in 1988.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{lenet}
+		\caption{Architecture of LeNet-5, a Convolutional Neural Network, here for digits recognition. Each plane is a feature map, i.e. a set of units
+			whose weights are constrained to be identical.\cite{lenet}}
+	\end{figure}
+	\FloatBarrier
+	
+	\paragraph~ LeNet-5 A total of seven layers, each with no input with trainable parameters; each layer has multiple FeatureMap, which is a property of each of the FeatureMap inputs extracted via a convolution filter, and then each FeatureMap has multiple neurons.\\
+	
+	\textbf{C1 layer-convolutional layer:}\\
+	\paragraph~ The first convolution operation is performed on the input image (using 6 convolution kernels of size 5*5) to obtain 6 feature maps of C1 (6 feature maps of size 28 28, 32-5 + 1 = 28). The size of the convolution kernel is 5, and there are 6 (5 * 5 + 1) = 156 parameters in total, where +1 indicates that a kernel has a bias. For convolution layer C1, each pixel in C1 is dependent on 5 of 5 pixels and 1 aberration in the input image, so there are 156 28 * 28 = 122304 links in total.\cite{lenet}\\
+	
+	\textbf{S2 layer-pooling layer (downsampling layer):}\\
+	\paragraph~ The pooling is done immediately after the first convolution. Pooling is done using 2 cores and S2, 14x14 (28/2 = 14) 6 feature maps are obtained. S2's pooling layer is a weighting coefficient plus an offset multiplied by the sum of the pixels in the 2*2 area in C1, and then the result is remapped. So each pooling core has two training parameters i.e. 2x6 = 12 training parameters but there are 5x14x14x6 = 5880 connections.\cite{lenet}\\
+	
+	\textbf{C3 layer-convolutional layer:}\\
+	\paragraph~ After the first pooling, the second convolution, the output of the second convolution is C3, 16 pieces of 10x10 feature maps, and the size of the convolution kernel is 5. The first 6 feature maps of C3 (corresponding to column 6 of the first). red box) connects to 3 feature maps connected to S2 layer and next 6 feature maps are connected to S2 layer 4 feature maps are connected, next 3 feature maps are connected to 4 feature maps are unconnected in S2 layer and last one is linked to all feature maps in S2 layer. The convolution kernel size is still 5x5, so there are 6 (3*5*5 + 1) + 6 (4*5*5 + 1) + 3 (4*5*5 + 1) +1 (6*5*5 + 1) = 1516 parameters. The image size is 10 10 so there are 151600 connections.\cite{lenet}\\
+	
+	\textbf{S4 layer-pooling layer (downsampling layer):}\\
+	\paragraph~ S4 is the pooling layer, the window size is still 2*2, a total of 16 feature maps and 16 10x10 maps of the C3 layer are pooled in units of 2x2 to get 16 5x5 feature maps. This layer has a total of 32 training parameters, 2x16, 5x5x5x16 = 2000 connections.\cite{lenet}\\
+	
+	\textbf{C5 layer-convolution layer:}\\
+	\paragraph~ The C5 layer is a convolution layer. Since the size of the 16 images of the S4 layer is 5x5, the size of the image formed after convolution is 1x1, which is the same as the size of the convolution kernel. This results in 120 convolution results. Each is linked to 16 maps from the previous level. So there are (5x5x16 + 1) x120 = 48120 parameters and there are also 48120 connections.\cite{lenet}\\
+	
+	\textbf{F6 layer-fully connected layer:}\\
+	\paragraph~ Layer 6 is a fully connected layer. The F6 layer has 84 nodes corresponding to a 7x12 bitmap, -1 means white, 1 means black, so the black and white of each symbol's bitmap corresponds to a code. The training parameters and number of connections for this layer is (120 + 1) x84 = 10164.\cite{lenet}\\
+	\section{Python Libraries for Project}
+	
+	\subsection{Python-Peripherial}
+	\paragraph~ Python-periphery is a pure Python library for GPIO, LED, PWM, SPI, I2C, MMIO, and Serial peripheral I/O interface access in userspace Linux. Useful in embedded Linux environments (including Raspberry Pi) for interfacing with external peripherals.\cite{perip}
+	\subsection{Tensorflow-Keras}
+	\paragraph~ TensorFlow 2 is an end-to-end, open-source machine learning platform.\cite{tensorflow} It enables it to efficiently execute low-level tensor operations on the CPU, GPU, or TPU. Calculates the gradient of arbitrarily differentiable expressions.\cite{tensorflow} Scales computation to many devices, such as clusters of hundreds of GPUs.\cite{tensorflow} Streams programs ("graphics") to external runtimes such as servers, browsers, mobile, and embedded devices.\cite{tensorflow} It combines these four key features in one platform.\cite{keras}
+	\chapter{MATERIALS AND METHODS}
+	\section{Htpa32x32d Thermopile Infrared Array}
+	\paragraph~ The sensor chosen to be used in the project is HTPA32x32d thermopile array sensor.
+	HTPA32x32d thermopile array sensor 32x32 pixel, operates between -10 and 70 degrees,
+	provides I2C communication, has an internal EEPROM and provides an 8-bit data set.
+	EEPROM data contains calibration data for each pixel of the sensor.\\
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.35\textwidth]{htpa}
+		\includegraphics[width=0.5\textwidth]{htpasema}
+		\caption{Schematic for HTPA32x32d}
+	\end{figure}
+	\FloatBarrier
+	\begin{flushleft}
+		\begin{table}[h!]
+			
+			\caption{Genaral Features HTPA32x32d}
+			
+			
+			\begin{tabular}{|l|l|l|l|l|}
+				\hline
+				Features\textbackslash\{\}& Sensitivity & Therm. Pix. Time Const. & Digital Interface & EEPROM Size\\\hline
+				& 450V/W&$<4ms $& I2C & 64kBit  \\\hline
+				Features\textbackslash\{\}& Max Frame&Field of View & Selectable Clock & Storage Temperature \\\hline
+				&60 Hz& 33*33 deg & 1 to 13 Mhz & -40/85 Deg.C \\\hline
+			\end{tabular}
+		\end{table}
+	\end{flushleft}
+	\FloatBarrier
+	\section{Sensor and MCU Communication PCB Design}
+	\paragraph~ A mini card has been designed between the sensor and the Raspberry pi card to communicate. However, the card could not be printed. The card that will connect the sensor and the motherboard has been designed completely according to the standards recommended by Heimann company.\\
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.6\textwidth]{schematic}
+		\caption{Schematic Design of Communication PCB}
+		\includegraphics[width=0.4\textwidth]{pcb}
+		\caption{PCB Design of Communication PCB}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~ In addition to this, we have produced a product suitable for a schematic on a mini perforated plate for use in communication with the card. In addition, we designed a protective cage from a 3d printer to protect the sensor.\\
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{mb}
+		\caption{Mini Sensor Board}
+	\end{figure}
+	
+	\section{Dataset}
+	\subsection{Multi-Modal Hand Gesture Dataset for Hand Gesture Recognition}
+	\paragraph~ This dataset was created to validate a hand-gesture recognition system for Human-Machine Interaction (HMI). It is composed of 15 different hand-gestures (4 dynamic and 11 static) that are split into 16 different hand-poses, acquired by the Leap Motion device. Hand-gestures were performed by 25 different subjects (8 women and 17 men). Every gesture has 20 instances (repetitions) per subject, performed in different locations in the image.\cite{dataset}\\
+	for static and dynamic gestures:\\
+	This set contains 16 hand-poses, used for both static and dynamic hand-gestures:\\
+	A: L
+	B: fist moved
+	C: index
+	D: ok
+	E: C
+	F: heavy
+	G: hang
+	H: two
+	I: three
+	J: four
+	K: five
+	L: palm
+	M: down
+	N: palm moved
+	O: palm up
+	P: up
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{data1.png}
+		\caption{Hand Gesture Dataset}
+	\end{figure}
+	\FloatBarrier
+	\section{Data Augmentation}
+	\paragraph~ Using this dataset, a new train and validation set was created for the static gestures in the project. A total of 36800 and 9200 train and validation sets were created with randomly selected images.However, both resizing and data augmentation were done in order to make the data set suitable for the project.\cite{aug}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.2\textwidth]{close_test289}
+		\includegraphics[width=0.2\textwidth]{index_test179}
+		\includegraphics[width=0.2\textwidth]{last_test71}
+		\includegraphics[width=0.2\textwidth]{open_test_0_9826}
+		\caption{Close-Index-Last Page-Open Gestures}
+	\end{figure}
+	\FloatBarrier
+	
+	\chapter{PROGRESS AND RESULT}
+	\paragraph~ In this section, the methods to be applied in the project are included.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{framework}
+		\caption{System Framework for Static Gestures}
+	\end{figure}
+	\FloatBarrier
+	
+	\section{Capture Thermopiles Image}
+	\subsection{Heimann Thermopile Array Sensor communication}
+	\paragraph~ First, I provided the connections between the sensor and the Raspberry Pi in order to receive the image. I provided the communication with the mini card I made in section 4.2 using the I2C protocol.
+	
+	\paragraph~ With the device connected to a Raspberry Pi, and with the Pi configured.\cite{adaf} correctly for I2C, I was able to see the devices connected with the i2cdetect command.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{raspi1.png}
+		\caption{Thermopile Infrared Array Device and EEPROM Addresses}
+	\end{figure}
+	\FloatBarrier
+	
+	\paragraph~ In order to be able to read the data properly, the python-periphery\cite{perip} library was used. The sensor is divided into two parts (Top and Bottom Half), which are also divided into 4 blocks. The reading order is shown below for different blocks. When a conversion is initiated, the X Block of the upper and lower half are measured simultaneously. Each block consists of 128 Pixels sampled entirely in parallel. The reading order in the lower half is mirrored compared to the upper half so the center lines are always read last.
+	
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Read Data 1 Command (Top Half of Array)}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|} 
+				\hline
+				Addr/CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x0A}\\\cline{1-9}
+				Read Data &7&6&5&4&3&2&1&0\\
+				\cline{1-9}
+				1. Byte / 2. Byte & \multicolumn{8}{c|}{PTAT 1 MSB / LSB or Vdd 1 MSB / LSB}\\\cline{1-9}
+				3. Byte / 4. Byte & \multicolumn{8}{c|}{Pixel (0+BLOCK*128) MSB / LSB}\\\cline{1-9}
+				5. Byte / 6. Byte & \multicolumn{8}{c|}{Pixel (1+BLOCK*128) MSB / LSB}\\\cline{1-9}
+				... & \multicolumn{8}{c|}{}\\\cline{1-9}	
+				257. Byte / 258. Byte & \multicolumn{8}{c|}{Pixel (127+BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Read Data 2 Command (Bottom Half of Array)}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|} 
+				\hline
+				Addr/CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x0B}\\\cline{1-9}
+				Read Data &7&6&5&4&3&2&1&0\\
+				\cline{1-9}
+				1. Byte / 2. Byte & \multicolumn{8}{c|}{PTAT 2 MSB / LSB or Vdd 2 MSB / LSB}\\\cline{1-9}
+				3. Byte / 4. Byte & \multicolumn{8}{c|}{Pixel (992-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				5. Byte / 6. Byte & \multicolumn{8}{c|}{Pixel (993-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				... & \multicolumn{8}{c|}{}\\\cline{1-9}	
+				65. Byte / 66. Byte & \multicolumn{8}{c|}{Pixel (1023-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				65. Byte / 66. Byte & \multicolumn{8}{c|}{Pixel (1023-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				67. Byte / 68. Byte & \multicolumn{8}{c|}{Pixel (960-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				69. Byte / 70. Byte & \multicolumn{8}{c|}{Pixel (961-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				... & \multicolumn{8}{c|}{}\\\cline{1-9}
+				
+				129. Byte / 130. Byte & \multicolumn{8}{c|}{Pixel (991-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				131. Byte / 132. Byte & \multicolumn{8}{c|}{Pixel (928-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+				...& \multicolumn{8}{c|}{}\\\cline{1-9}
+				
+				257. Byte / 258. Bytes& \multicolumn{8}{c|}{Pixel (927-BLOCK*128) MSB / LSB}\\\cline{1-9}
+				
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	Each block is checked before it is read. The python-opencv\cite{cv2} library was used to visualize the obtained result.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.23\textwidth]{4.img}
+		\includegraphics[width=0.23\textwidth]{3.img}
+		\caption{Thermal Image}
+	\end{figure}
+	\FloatBarrier
+	
+	
+	\paragraph~ Each pixel (or each analog-to-digital converter, given the repeating structure corresponding to each "block" of the sensor) has its own offset and sensitivity to incident light. Without calibrating it, this constant "noise" suppresses the signal from changing IR/temperature conditions. By subtracting the two frames in quick succession, this common noise signal is removed.
+	
+	\paragraph~ However, it is still quite noisy, as this frame subtraction increases random noise (since we now have contributions from two frames) and does not correct pixel-dependent sensitivity.
+	Only fabrication calibration will be done with EEPROM data in the next step.
+	\subsection{Calibrating images from Heimann Thermopile Array Sensor}
+	
+	\paragraph~ After reading an image off a Heimann thermopile array, the pixel values can be converted to temperature readings through the use of calibration parameters stored on the device. To extract the calibration parameters, it is easiest to first read off the entire EEPROM on the thermopile array.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{eeprom}
+		\caption{EEPROM overview 32x32d\cite{datasheet}}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~ Then, parameters and calibration values can be extracted from this array, as described in the Heimann datasheet.\cite{datasheet}\\
+	Calibration for only one pixel is done as follows.\\
+	$PTAT_{av} = \frac{\sum \limits _{i=0}^{7}{PTAT_i}}{8}=38152 Digits $ \\
+	$PTAT_{gradient}=0.0211 dK/Digit $ and $PTAT_{offset}=2195.0dK$ \\
+	$ V_{00}=34435 Digits $\\
+	$ elOffset[0]=34240 $\\
+	$gradScale=24  $\\
+	$ThGrad_{00}=11137$ \\
+	$ThOffset_{00}=65506 $\\
+	$VDD_{av}=35000 $\\
+	$ VDD_{TH1}= 33942 $\\
+	$ VDD_{TH2} = 36942 $\\
+	$ PTAT_{TH1} = 30000  $\\
+	$ PTAT_{TH_2} = 42000  $\\
+	$ VddCompGrad[ 0 ] = 10356 $\\
+	$ VddCompOff[ 0 ] =51390  $\\
+	$ VddScGrad = 16 $\\
+	$VddScOff = 23  $\\
+	$ PixC_{00}= 1\cdot087\cdot10^8 $\\
+	$ PCSCALEVAL = 1\cdot10^8 $\\
+	Calculation of ambient temperature:\\
+	$ 	T_a=PTAT_{av} \cdot PTAT_{gradient}+ PTAT_{offset}=38152 \cdot 0.0211 + 2195.0 dK =3000 dK $\\
+	Compensation of thermal offset:\\
+	$V_{00\_Comp}=V_{00}-\frac{Th_{Grad00} \cdot T_a}{2^{gradScale}}-Th_{Offset_{00}}=34439 $\\
+	Compensation of electrical offset:\\
+	$ 	V_{00\_Comp}^{\ast} =V_{00\_Comp}-elOffset[0]=199 $\\
+	Compensation of supply voltage:\\
+	$ V_{00-VDD_{Comp}}=V_{00\_Comp}^{\ast}-\frac{\frac{Vdd_{CompGrad}[0]\cdot PTAT_{av}}{2^{Vdd_{ScGrad}}}+V_{Vdd_{Compoff}}[0]}{2^{Vdd_{ScOff}}}\\
+	\cdot(VDD_{av}-VDD_{TH1}-(\frac{VDD_{TH2}-VDD_{TH1}}{PTAT_{TH2}-PTAT_{TH1}})\cdot(PTAT_{av}-PTAT_{TH1}))=199-1=198 $
+	The sensitivity coefficients ( PixC ij ) are calculated:\\
+	$PixC_{00}=(\dfrac{P_{00} \cdot (PixC_{Max}-PixC_{Min})}{65535}+PixC_{Min}) \cdot \frac{epsilon}{100} \cdot \frac{GlobalGain}{100000}=1\cdot087\cdot10^8 $\\
+	Leading to a compensation of the pixel voltage:\\
+	$V_{00PixC}=\dfrac{	V_{00-VDD_{Comp}}\cdot PCSCALEVAL}{PixC_{0}}=182$\\ 
+	
+	All operations are applied for 1024 pixels. Application result images are as in figure 4.4.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.23\textwidth]{last_test58}
+		\includegraphics[width=0.23\textwidth]{last_test59}
+		\includegraphics[width=0.23\textwidth]{last_test60}
+		\caption{Thermal Images with EEPROM Calibration Data}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~	\textbf{NOTE:All steps to acquired the image are made with reference to the datasheet\cite{datasheet}.}
+	\section{Hand Thermal Image Isolation}
+	\paragraph~ The hand was isolated from the background without using any image processing method. For this, it has been arranged in a way that can remove the ambient temperature of the device from the image before giving a command. First, the average of 10 images was taken and given to all images. Thus, the background temperature was isolated.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.23\textwidth]{rgb0}
+		\includegraphics[width=0.23\textwidth]{rgb1}
+		\includegraphics[width=0.23\textwidth]{rgb2}
+		\includegraphics[width=0.23\textwidth]{rgb3}
+		\caption{Thermal Images with Background}
+	\end{figure}
+	
+	\section{Hand Gesture Recognition}
+	\subsection{Static Gesture Recognition}
+	
+	
+	\paragraph~	A number of scenarios have been prepared for command matching for the smart mirror. The scenarios prepared are as follows;
+	
+	\paragraph~	For Static Movements:
+	
+	\paragraph~	There are 4 fixed movements. It is the ability to Open, Close, Tap and Return to Home.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.27\textwidth]{tek2}
+		\caption{Gestures of Open,Close,Touch,Return to the Home Page }
+	\end{figure}
+	\FloatBarrier
+	\paragraph~ We tried to create our own data set using the data set we mentioned in Section 3.3. We used images that are similar to each of the four identified gestures. It was found correct to use K: Five set for Open, B: First Moved set for Close, C: Index set for Touch, A:L set for ,Return to the Home Page.\cite{dataset} First, the images were cropped and resized that are chosen mixed. After these processes, the data reproduced by data augmentation were divided into two as validation and training data. The number of trains defined for each movement is approximately 9200, and the number of validation images is around 2300.
+	
+	\subsubsection{Model Architecture for LE-NET5}
+	\paragraph~ In 1989, Yann LeCun presented a convolutional neural network called LeNet. Generally, LeNet refers to LeNet-5 and is a simple convolutional neural network.\cite{lenet}
+	
+	\paragraph~The fact that our Input Image sizes are 32X32 was the biggest factor pushing us to use this model. Since we could not use a ready dataset, the change in the number of layers in order to train our model well, resulted in good results.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{cnn}
+		\caption{A~ Structural Diagram of the Proposed LENET5 for Static Gesture}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~ The general architecture for LeNet-5 is as given in Figure 3. The input layer C1 acts like the retina, which receives centered and size-normalized gesture images (otherwise, some images may not fit in the input layer). The next layer, S2, consists of several feature maps that have the same role to gestures as their simple cells. In practice, a feature map is a square. The weights in a feature map need to be the same so they can detect the same local feature in the input image. The weights between feature maps are different so they can detect different local features. Each unit in a feature map has a receiver field.
+	
+	\begin{table}[h!]
+		\begin{center}
+			\caption{The structural layers and number of parameters of the
+				LENET5.}
+			\begin{tabular}{|l|l|l|}
+				\hline
+				\multicolumn{3}{|c|}{Model:"Static\_Gesture\_Model} \\
+				\hline
+				Layer(type) & Output Shape & Param\# \\
+				\hline
+				conv2d\_8 (Conv2D)   & (None, 28, 28, 32)  & 832 \\
+				\hline
+				max\_pooling2d\_8 (MaxPooling2) & (None, 14, 14, 32)   &  0 \\
+				\hline
+				conv2d\_9 (Conv2D)   &  (None, 10, 10, 48)    &   38448   \\
+				\hline
+				max\_pooling2d\_9 (MaxPooling2) & (None, 5, 5, 48)      &  0 \\
+				\hline
+				flatten\_4 (Flatten)  & (None, 1200)   & 0 \\
+				\hline
+				dense\_16 (Dense) & (None,120)  & 307456 \\
+				\hline
+				dense\_17 (Dense) & (None, 84) &   21588  \\
+				\hline
+				dense\_18 (Dense) & (None, 10) &   850  \\
+				\hline
+				dense\_19 (Dense)  &   (None, 4)       &   44  \\
+				\hline
+				\multicolumn{3}{|l|}{Total params: 369,218} \\
+				\multicolumn{3}{|l|}{Trainable params: 369,218} \\
+				\multicolumn{3}{|l|}{Non-trainable params: 0}\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	\paragraph~ If to summarize the model we outlined in the table, we use two convolutional layers, then twice a pooling layer (32-filters and 48-filters, respectively), and finally three fully connected layers with 4-class softmax units.
+	
+	\FloatBarrier
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{learning_8_0}
+		\includegraphics[width=0.4\textwidth]{learning_9_0}
+		\caption{Loss and Accuracy Curves (Training and Validation Set)}
+	\end{figure}
+	\FloatBarrier
+	\paragraph~ And the result is close to perfect. Data augmentations worked. The learning algorithm, which reached 95\% validation accuracy, gave very successful results. In the next step, images will be given to the model again for testing and the results will be observed.
+	\subsubsection{Test Sets and Results}
+	\subsection{Dynamic Gesture Recognition}
+	
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Trim Register 1 (write only)\cite{datasheet}}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x03} \\
+				\hline
+				Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+				\hline
+				Name & \multicolumn{2}{c|}{RFU} & \multicolumn{2}{c|}{REF\_CAL}& \multicolumn{4}{c|}{MBIT TRIM}\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	
+	REF\_CAL: selectable amplification
+	\\
+	
+	MBIT\_TRIM: m = 4 to 12 (m+4) bit as ADC resolution\\
+	
+	\paragraph~ In order to get the maximum efficiency from the sensor, to set the ADC Resolution to 16 bits, m of 12 was determined according to the data in the table. Since the framerate was too low, it was decided to speed up by sacrificing quality, but the quality was too low, revealing that ADC resolution should not be compromised. According to the resolutions, the images are as in figure 2.\\
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.23\textwidth]{rgb0}
+		\includegraphics[width=0.23\textwidth]{rgb1}
+		\includegraphics[width=0.23\textwidth]{rgb2}
+		\caption{Thermal Images 8Bit-12Bit-16Bit ADC Resolution)}
+	\end{figure}
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Trim Register 2 (write only)\cite{datasheet}}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x04} \\
+				\hline
+				Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+				\hline
+				Name & \multicolumn{3}{c|}{RFU} & \multicolumn{5}{c|}{BIAS TRIM TOP}\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	BIAS\_TRIM\_TOP:0 to 31 $ \longrightarrow $ $ 1\mu A $ to $ 13 \mu A $\\
+	
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Trim Register 3 (write only)\cite{datasheet}}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x05} \\
+				\hline
+				Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+				\hline
+				Name & \multicolumn{3}{c|}{RFU} & \multicolumn{5}{c|}{BIAS TRIM BOT}\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	BIAS\_TRIM\_BOT: 0 to 31 $ \longrightarrow $ $ 1\mu A $ to $ 13 \mu A $\\
+	\paragraph~ This setting is used to adjust the bias current of the ADC. A faster clock frequency requires a
+	higher bias current setting.\cite{datasheet}\\
+	
+	\paragraph~ Having ADC resolution 16 made us think that it did not affect us much. Afterward, it was said that if the BIAS current value is set to the maximum, its speed may increase. However, as a result of this experiment, almost no change was observed in the framerate.\\
+	
+	\begin{table}[h!]
+		\begin{center}
+			\caption{Trim Register 4 (write only)\cite{datasheet}}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Addr / CMD & \multicolumn{8}{c|}{0x1A (7 Bit!) / 0x06} \\
+				\hline
+				Trim Reg 1 & 7 & 6 &5  &4  &3  &2  &1&0  \\
+				\hline
+				Name & \multicolumn{2}{c|}{RFU} & \multicolumn{6}{c|}{CLK TRIM}\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{table}
+	\FloatBarrier
+	CLK\_TRIM:0 to 63 $ \longrightarrow $ $ 1 MHz $ to $ 13 MHz $\\
+	
+	\paragraph~ The point where we could most easily observe the increase in Frame Rate was the Clock Trim set. Although I set the maximum value, I could not get the desired result here.\\
+	\section{Matching Gesture to Commands of Smart Mirror}
+	
+	\paragraph~ In the project carried out by Vestel, friends who are interested in the smart mirror part are expected to define the gestures for the android side of the smart mirror.
+	\newpage
+	\chapter{Work Plan and Work Packages}
+	\begin{landscape}
+		\noindent\resizebox{260mm}{!}{\begin{ganttchart}[
+				hgrid style/.style={black, dotted},
+				vgrid={*5{black,dotted}, *1{white, dotted}, *1{black, dashed}},
+				x unit=2mm,
+				y unit chart=9mm,
+				y unit title=12mm,
+				time slot format=isodate,
+				group label font=\bfseries \Huge,
+				link/.style={->, thick}
+				]{2020-10-01}{2021-04-16}
+				\gantttitlecalendar{year, month=name, week}\\
+				
+				\ganttgroup[
+				group/.append style={fill=orange}
+				]{Literature Review and Material Supply}{2020-10-01}{2021-01-15}\\ [grid]
+				\ganttorangebar[
+				name=Documentation
+				]{Literature Review}{2020-10-01}{2021-01-15}\\ [grid]
+				\ganttorangebar[
+				name=FMETutorial
+				]{Material Supply}{2020-12-01}{2021-01-15}\\ [grid]
+				%%%%%%%%%%WP2%%%%%%%%%%%%
+				\ganttgroup[
+				group/.append style={fill=blue}
+				]{Sensor PCB Design}{2021-01-11}{2021-02-03}\\ [grid]
+				
+				\ganttbluebar[
+				name=FMETutorial
+				]{Referance Circuit Rewiev}{2021-01-11}{2021-01-13}\\ [grid]
+				\ganttlinkedblackbar{}{2021-01-13}{2021-01-14}
+				\ganttbluebar[
+				name=FMETutorial
+				]{Schematic Design}{2021-01-14}{2021-01-15}\\ [grid]
+				
+				\ganttlinkedblackbar{}{2021-01-15}{2021-01-16}
+				\ganttbluebar[
+				name=FMETutorial
+				]{PCB Design}{2021-01-16}{2021-01-18}\\ [grid]
+				
+				\ganttlinkedbluebar{}{2021-01-18}{2021-02-01}
+				
+				\ganttbluebar[
+				name=FMETutorial
+				]{Testing Sensor PCB}{2021-02-01}{2021-02-03}\\ [grid]
+				%%%%%%%%%%%%%%%%%%%WP3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+				\ganttgroup[
+				group/.append style={fill=red}
+				]{Gesture Detection}{2021-01-03}{2021-04-15}\\ [grid]
+				%\ganttredbar[
+				%name=FMETutorial
+				%]{Hand Thermal Image Isolation}{2020-01-03}{2021-01-21}\\ [grid]
+				\ganttredbar[
+				name=FMETutorial
+				]{Receiving Data From The Sensor}{2021-01-03}{2021-01-05}\\ [grid]
+				\ganttlinkedblackbar{}{2021-01-05}{2021-01-06}
+				\ganttredbar[
+				name=FMETutorial
+				]{Making The Data Meaningful}{2021-01-06}{2021-01-07}\\ [grid]
+				\ganttlinkedblackbar{}{2021-01-07}{2021-01-08}
+				\ganttredbar[
+				name=FMETutorial
+				]{Isolation of The Hand From The Data Received From the Sensor}{2021-01-08}{2021-01-18}\\ [grid]
+				\ganttlinkedblackbar{}{2021-01-18}{2021-01-19}
+				\ganttredbar[
+				name=FMETutorial
+				]{Detecting Hand Condition}{2021-01-19}{2021-01-30}\\ [grid]
+				\ganttlinkedblackbar{}{2021-01-30}{2021-02-01}
+				\ganttredbar[
+				name=FMETutorial
+				]{ Creating Dataset for Static Gesture }{2021-02-01}{2021-02-15}\\ [grid]
+				\ganttlinkedblackbar{}{2021-02-15}{2021-02-16}
+				\ganttredbar[
+				name=FMETutorial
+				]{Creating LENET-5 Model for Static Gesture }{2021-02-16}{2021-03-15}\\ [grid]
+				\ganttlinkedblackbar{}{2021-03-15}{2021-03-16}
+				\ganttredbar[
+				name=FMETutorial
+				]{Testing LENET-5 Model for Static Gesture }{2021-03-16}{2021-04-15}\\ [grid]
+		\end{ganttchart}}
+	\end{landscape}
+	\newpage
+	\chapter{COST ANALYSIS}
+	\section{Economical Costs}
+	
+	\paragraph~	In this project, the economic cost is only in the hardware part. A Raspberry Pi 4B and Thermopil array sensor are used in our project. The market price of Raspberry Pi 4B is \$55. The thermopil array sensor, on the other hand, has been chosen the most suitable for our project and has been researched for the market. The price of the HEIMANN HTPA32x32d Thermopil array sensor is \$87. There is currently no separate cost in the software part. Because using opensource software.
+	
+	\section{Environmental,Political and Social Costs}
+	\paragraph~	Infrared sensor arrays have emerged in recent years and are products that allow the application of thermal imaging technologies to consumer electronics. With the introduction of Covid-19 into our lives, it is frequently encountered in the field of thermal imaging. Since a consumer electronics product using these products has not been produced in Turkey yet, it is considered to contribute to the national knowledge. In the project where privacy is prioritized, the privacy of the person will be ensured by using a thermopile array sensor. Also, the project is executed by Vestel A.Ş. so the project is expected to inspire different projects within Vestel. The fact that these sensors are newly introduced to the market will pave the way for innovative applications in many fields and thus method changes that can turn into patents. For example, although gesture recognition is performed with cameras conventionally, it offers a significant innovation in methodology, using passive infrared arrays. Smart mirrors that can be controlled with gesture recognition can have a positive effect on the preference of the products in question by the consumers. In doing so, using a technology that does not impair personal privacy will ensure that the users put the product into their lives safely and the applications related to the product become widespread.
+	
+	\chapter{CONCLUSION}
+	
+	\newpage
+	\bibliographystyle{deueeebst2.bst}
+	
+	\bibliography{fp_refs}
+	\newpage
+	\chapter{APPENDIX}
+	
+	%\input{learn}
+	%\includepdf[pages=-]{learn.pdf}
+	
+\end{document}

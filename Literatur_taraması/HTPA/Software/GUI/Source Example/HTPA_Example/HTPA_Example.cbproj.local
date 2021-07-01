@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.106,C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Project2.cbproj=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\HTPA_Example.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.490,=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\Unit8.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.325,=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\Unit5.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.588,=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Project2.res</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.602,=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.270,C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Unit1.cpp=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.270,C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Unit1.h=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.270,C:\Users\Bodo Forg\Documents\RAD Studio\Projekte\Unit1.dfm=C:\Users\Bodo Forg\Documents\RAD Studio\Projekte Xe\HTPA_Example\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

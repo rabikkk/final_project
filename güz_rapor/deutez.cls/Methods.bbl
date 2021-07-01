@@ -1,0 +1,115 @@
+\begin{thebibliography}{10}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname uline\endcsname\relax\let\uline\underline\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Otsu1}
+Otsu, N.
+\newblock \enquote{A threshold selection method from gray-level histograms}.
+\newblock {IEEE} Transactions on Systems, Man, and Cybernetics, volume~9,
+  no.~1, pages 62--66, 1979.
+
+\bibitem{htpa}
+Schilz, J.
+\newblock \enquote{thermophysica minima thermoelectric infrared sensors (
+  thermopiles ) for remote temperature measurements ; pyrometry}, 2001.
+
+\bibitem{image}
+Gonzalez, R.
+\newblock \uline{Digital image processing}.
+\newblock Prentice Hall, Upper Saddle River, N.J, 2008.
+
+\bibitem{MHIbook}
+Ahad, M. A.~R.
+\newblock \uline{Motion History Images for Action Recognition and
+  Understanding}.
+\newblock Springer London, 2013.
+
+\bibitem{hybrid}
+Ghafouri, S. and Seyedarabi, H.
+\newblock \enquote{Hybrid method for hand gesture recognition based on
+  combination of haar-like and {HOG} features}.
+\newblock In \uline{2013 21st Iranian Conference on Electrical Engineering
+  ({ICEE})}. {IEEE}, 2013.
+
+\bibitem{HOG}
+Prasuhn, L., Oyamada, Y., et~al.
+\newblock \enquote{A {HOG}-based hand gesture recognition system on a mobile
+  device}.
+\newblock In \uline{2014 {IEEE} International Conference on Image Processing
+  ({ICIP})}. {IEEE}, 2014.
+
+\bibitem{KNN}
+Chen, W.-H. and Ma, H.-P.
+\newblock \enquote{A fall detection system based on infrared array sensors with
+  tracking capability for the elderly at home}.
+\newblock In \uline{17th}. {IEEE}, 2015.
+
+\bibitem{LeCun}
+LeCun, Y., Bengio, Y., and Hinton, G.
+\newblock \enquote{Deep learning}.
+\newblock Nature, volume 521, no. 7553, pages 436--444, 2015.
+
+\bibitem{opencv}
+OpenCV.
+\newblock \enquote{Open source computer vision library}.
+\newblock 2015opencv, 2015.
+
+\bibitem{Otsu2}
+Yuan, X., Mart{\'{\i}}nez, J.-F., et~al.
+\newblock \enquote{An improved otsu threshold segmentation method for
+  underwater simultaneous localization and mapping-based navigation}.
+\newblock Sensors, volume~16, no.~7, page 1148, 2016.
+
+\bibitem{dynamic}
+Hussain, S., Saxena, R., et~al.
+\newblock \enquote{Hand gesture recognition using deep learning}.
+\newblock In \uline{2017 International {SoC} Design Conference ({ISOCC})}.
+  {IEEE}, 2017.
+
+\bibitem{CNN2}
+Kawashima, T., Kawanishi, Y., et~al.
+\newblock \enquote{Action recognition from extremely low-resolution thermal
+  image sequence}.
+\newblock pages 1--6, 2017.
+
+\bibitem{gesturecnn}
+Li, G., Tang, H., et~al.
+\newblock \enquote{Hand gesture recognition based on convolution neural
+  network}.
+\newblock Cluster Computing, volume~22, no.~S2, pages 2719--2729, 2017.
+
+\bibitem{datasheet}
+Lupp, S.
+\newblock \enquote{Htpa32x32dr2l5.0/0.85f7.7ehic thermopile array with lens
+  optics rev3.0}.
+\newblock Technical report, Heimann, 2018.03.28.
+
+\bibitem{mhi}
+Ba, N.~L., Oh, S., et~al.
+\newblock \enquote{A 256 pixel, 21.6 uw infrared gesture recognition
+  processor for smart devices}.
+\newblock Microelectronics Journal, volume~86, pages 49--56, 2019.
+
+\bibitem{CNN1}
+Pinto, R.~F., Borges, C. D.~B., et~al.
+\newblock \enquote{Static hand gesture recognition based on convolutional
+  neural networks}.
+\newblock Journal of Electrical and Computer Engineering, volume 2019, pages
+  1--12, 2019.
+
+\bibitem{car}
+Tateno, S., Zhu, Y., and Meng, F.
+\newblock \enquote{Hand gesture recognition system for in-car device control
+  based on infrared array sensor}.
+\newblock pages 701--706, 2019.
+
+\bibitem{static}
+V., A. and R., R.
+\newblock \enquote{A deep convolutional neural network approach for static hand
+  gesture recognition}.
+\newblock Procedia Computer Science, volume 171, pages 2353--2361, 2020.
+
+\end{thebibliography}

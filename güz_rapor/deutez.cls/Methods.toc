@@ -1,0 +1,69 @@
+\babel@toc {english}{}
+\contentsline {paragraph}{~}{1}%
+\contentsline {chapter}{ABSTRACT}{1}%
+\contentsline {paragraph}{~}{2}%
+\contentsline {chapter}{ÖZET}{2}%
+\contentsline {chapter}{Contents}{3}%
+\contentsline {chapter}{List of Figures}{4}%
+\contentsline {chapter}{List of Tables}{5}%
+\contentsline {chapter}{\numberline {1}Introduction}{6}%
+\contentsline {paragraph}{~}{6}%
+\contentsline {paragraph}{~}{6}%
+\contentsline {paragraph}{~}{6}%
+\contentsline {paragraph}{~}{6}%
+\contentsline {paragraph}{~}{7}%
+\contentsline {paragraph}{~}{7}%
+\contentsline {paragraph}{~}{7}%
+\contentsline {chapter}{\numberline {2}Methodology}{8}%
+\contentsline {paragraph}{~}{8}%
+\contentsline {section}{\numberline {2.1}Capture Thermopiles Image}{9}%
+\contentsline {paragraph}{~}{9}%
+\contentsline {paragraph}{~}{9}%
+\contentsline {paragraph}{~}{9}%
+\contentsline {paragraph}{~}{10}%
+\contentsline {paragraph}{~}{10}%
+\contentsline {paragraph}{~}{11}%
+\contentsline {paragraph}{~}{11}%
+\contentsline {paragraph}{~}{11}%
+\contentsline {paragraph}{~}{13}%
+\contentsline {paragraph}{~}{13}%
+\contentsline {section}{\numberline {2.2}Hand Thermal Image Isolation}{13}%
+\contentsline {paragraph}{~}{13}%
+\contentsline {paragraph}{~}{14}%
+\contentsline {paragraph}{~}{14}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{15}%
+\contentsline {paragraph}{~}{16}%
+\contentsline {paragraph}{~}{16}%
+\contentsline {paragraph}{~}{16}%
+\contentsline {section}{\numberline {2.3}Hand Gesture Recognition}{16}%
+\contentsline {paragraph}{~}{16}%
+\contentsline {subsection}{\numberline {2.3.1}Static Gesture Recognition}{17}%
+\contentsline {paragraph}{~}{17}%
+\contentsline {paragraph}{~}{17}%
+\contentsline {paragraph}{~}{17}%
+\contentsline {paragraph}{~}{17}%
+\contentsline {paragraph}{~}{18}%
+\contentsline {subsection}{\numberline {2.3.2}Dynamic Gesture Recognition}{18}%
+\contentsline {paragraph}{~}{18}%
+\contentsline {section}{\numberline {2.4}Matching Gesture to Commands of Smart Mirror}{19}%
+\contentsline {paragraph}{~}{19}%
+\contentsline {paragraph}{~}{19}%
+\contentsline {paragraph}{~}{20}%
+\contentsline {section}{\numberline {2.5}Sensor and MCU Communication PCB Design}{20}%
+\contentsline {paragraph}{~}{20}%
+\contentsline {chapter}{\numberline {3}Work Plan and Work Packages}{21}%
+\contentsline {chapter}{\numberline {4}Cost Analysis}{24}%
+\contentsline {section}{\numberline {4.1}Economical Costs}{24}%
+\contentsline {paragraph}{~}{24}%
+\contentsline {section}{\numberline {4.2}Environmental,Political and Social Costs}{24}%
+\contentsline {paragraph}{~}{24}%
+\contentsline {chapter}{\numberline {5}Conclusion}{25}%
+\contentsline {paragraph}{~}{25}%
+\contentsline {paragraph}{~}{25}%
+\contentsline {paragraph}{~}{25}%

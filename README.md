@@ -3,6 +3,8 @@
 Path hatası alınabilir 
 
 %%Images
+
 \graphicspath{ {./images/} }
-resimlerinizin bulunduğu klasörün yolunu doğru  tanımlayın.
+
+resimlerinizin bulunduğu klasörün yolunu doğru tanımlayın.
 

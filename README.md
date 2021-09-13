@@ -4,7 +4,7 @@ Path hatası alınabilir
 
 %%Images
 
-\graphicspath{ {./images/} }
+`\graphicspath{ {./images/} }`
 
 resimlerinizin bulunduğu klasörün yolunu doğru tanımlayın.
 
